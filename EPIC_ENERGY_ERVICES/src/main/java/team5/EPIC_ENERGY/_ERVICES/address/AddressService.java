@@ -1,5 +1,6 @@
 package team5.EPIC_ENERGY._ERVICES.address;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,10 @@ public class AddressService {
 							+ payload.getMunicipalityNumber());
 		}
 
+	}
+
+	public List<Address> getAll() {
+		return addressRepo.findAll();
 	}
 
 }
