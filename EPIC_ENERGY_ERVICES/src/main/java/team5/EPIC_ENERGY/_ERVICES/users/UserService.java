@@ -37,11 +37,11 @@ public class UserService {
 	}
 
 	public User findById(UUID id) throws NotFoundException {
-		return usersRepo.findById(id).orElseThrow(() -> new NotFoundException("Utente non trovato"));
+		return usersRepo.findById(id).orElseThrow(() -> new NotFoundException("User not found"));
 	}
 
 	public User findByEmail(String email) throws NotFoundException {
-		return usersRepo.findByEmail(email).orElseThrow(() -> new NotFoundException("Utente non trovato"));
+		return usersRepo.findByEmail(email).orElseThrow(() -> new NotFoundException("User not found"));
 	}
 
 	public User findByIdAndUpdate(UUID id, UserRegistrationPayload u) throws NotFoundException {
