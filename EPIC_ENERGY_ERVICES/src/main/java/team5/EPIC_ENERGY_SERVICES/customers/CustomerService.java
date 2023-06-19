@@ -1,13 +1,10 @@
 package team5.EPIC_ENERGY_SERVICES.customers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,7 +18,8 @@ public class CustomerService {
         return customerRepo.save(c);
     }
 
-    public List<Customer> find(){
+    public List<Customer> find(int page){
+        Pageable pageable = PageRequest.of(page, 10);
         return customerRepo.findAll();
     }
 

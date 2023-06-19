@@ -25,6 +25,7 @@ public class CustomerRunner implements CommandLineRunner {
                 Customer customer = new Customer();
                 customer.setBusinessName(faker.funnyName().name());
                 customer.setAdded(LocalDate.of(2023, 01, 01));
+                customer.setLastContact(customer.getAdded().plusDays(42));
                 customer.setCustomerType(BusinessType.SAS);
                 customer.setEmail(faker.internet().emailAddress());
                 customer.setAnnualTurnover(BigDecimal.valueOf(faker.number().randomNumber()));
@@ -35,7 +36,8 @@ public class CustomerRunner implements CommandLineRunner {
                 customer.setPec(faker.internet().emailAddress());
                 customer.setPhoneNo(faker.phoneNumber().phoneNumber());
                 customer.setLegalAddress(faker.address().fullAddress());
-               // customerService.create(customer);
+                customer.setVATNumber(String.valueOf(faker.number().numberBetween(111111111, 999999999)));
+                customerService.create(customer);
             } catch (Exception e) {
                 System.out.println(e);
             }

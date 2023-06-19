@@ -17,7 +17,7 @@ public class CustomerController {
     //********** GET ALL CUSTOMERS **********
     @GetMapping("")
     public Page<Customer> getUsers(@RequestParam(defaultValue = "0") int page){
-        return (Page<Customer>) customerService.find();
+        return (Page<Customer>) customerService.find(10);
     }
 
     //********** POST NEW CUSTOMER **********
