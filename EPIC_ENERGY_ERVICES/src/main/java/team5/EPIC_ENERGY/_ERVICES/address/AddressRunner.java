@@ -1,6 +1,7 @@
 package team5.EPIC_ENERGY._ERVICES.address;
 
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,25 +27,6 @@ public class AddressRunner implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		// Carica e legge primo file csv (comuni)
-		// Crea un nuovo Array che contiene liste di String
-		List<List<String>> records = new ArrayList<List<String>>();
-
-		// I file csv dati da Epicode usano ';' come separatore invece di ','
-		CSVParser parser = new CSVParserBuilder().withSeparator(';').build();
-		CSVReader csvReader = new CSVReaderBuilder(new FileReader(
-				"src/main/java/team5/EPIC_ENERGY/_ERVICES/municipality/csv/comuni-italiani.csv"))
-				.withCSVParser(parser).build();
-
-		// Usa CSVReader dalla libreria OpenCSV per salvare i dati sull'array
-		try (csvReader) {
-			String[] values = null;
-			while ((values = csvReader.readNext()) != null) {
-				records.add(Arrays.asList(values));
-
-			}
-		}
-
 		// Se la tabella su db e vuota, viene popolata
 		if (municipalityRepo.findAll().isEmpty()) {
 			// Il primo record contiene il nome delle colonne:
@@ -52,6 +34,11 @@ public class AddressRunner implements CommandLineRunner {
 			// italiano")
 			// Quindi la prima riga deve essere saltata
 			boolean firstRecord = true;
+
+			// Richiame il metodo 'csvToArray che ho creato io
+			List<List<String>> records = csvToArray(
+					"src/main/java/team5/EPIC_ENERGY/_ERVICES/municipality/csv/comuni-italiani.csv",
+					';');
 
 			for (List<String> record : records) {
 
@@ -75,4 +62,27 @@ public class AddressRunner implements CommandLineRunner {
 
 	}
 
+	// Creo un metodo per riutlizzare il codice
+	private static List<List<String>> csvToArray(String filePath,
+			char separator) throws IOException {
+		// Carica e legge primo file csv (comuni)
+		// Crea un nuovo Array che contiene liste di String
+		List<List<String>> records = new ArrayList<List<String>>();
+
+		// I file csv dati da Epicode usano ';' come separatore invece di ','
+		CSVParser parser = new CSVParserBuilder().withSeparator(separator)
+				.build();
+		CSVReader csvReader = new CSVReaderBuilder(new FileReader(filePath))
+				.withCSVParser(parser).build();
+
+		// Usa CSVReader dalla libreria OpenCSV per salvare i dati sull'array
+		try (csvReader) {
+			String[] values = null;
+			while ((values = csvReader.readNext()) != null) {
+				records.add(Arrays.asList(values));
+
+			}
+		}
+		return records;
+	}
 }
