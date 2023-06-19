@@ -5,7 +5,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import team5.EPIC_ENERGY_SERVICES.municipality.Municipality;
@@ -50,6 +49,25 @@ public class AddressService {
 		return addressRepo.findById(id).orElseThrow(
 				() -> new NotFoundException("User not found for id: " + id));
 
+	}
+
+	public Address findByIdAndUpdate(UUID userId, Address address)
+			throws NotFoundException {
+		Address found = this.getAddressById(userId);
+
+		found.setId(userId);
+		found.setBuildingNumber(address.getBuildingNumber());
+		found.setCity(address.getCity());
+		found.setMunicipality(address.getMunicipality());
+		found.setStreet(address.getStreet());
+		found.setZipCode(address.getZipCode());
+
+		return addressRepo.save(found);
+	}
+
+	public void findByIdAndDelete(UUID id) throws NotFoundException {
+		Address found = this.getAddressById(id);
+		addressRepo.delete(found);
 	}
 
 }
