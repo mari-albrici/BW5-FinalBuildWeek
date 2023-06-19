@@ -19,4 +19,8 @@ public class CreateAddressPayload {
 	@NotNull(message = "ZIP Code is required")
 	@Size(min = 5, max = 5, message = "ZIP code must have 5 digits")
 	String zipCode;
+
+	@NotNull(message = "Municipality Number is required")
+
+	String municipalityNumber;
 }
