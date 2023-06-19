@@ -1,4 +1,4 @@
-package team5.EPIC_ENERGY._ERVICES.address;
+package team5.EPIC_ENERGY_SERVICES.address;
 
 import java.util.UUID;
 
@@ -10,7 +10,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import team5.EPIC_ENERGY._ERVICES.municipality.Municipality;
+import team5.EPIC_ENERGY_SERVICES.municipality.Municipality;
 
 @Entity
 @Table(name = "addresses")

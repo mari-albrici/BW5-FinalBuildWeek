@@ -1,10 +1,12 @@
-package team5.EPIC_ENERGY._ERVICES.address;
+package team5.EPIC_ENERGY_SERVICES.address;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,4 +32,12 @@ public class AddressController {
 	public List<Address> getAllAddresses() {
 		return addressService.getAll();
 	}
+
+	// 3. READ (GET METHOD) - http://localhost:3001/users/:addressId
+	@GetMapping("/id/{addressId}")
+	public Address getSpecificUserById(@PathVariable String addressId) {
+		return addressService.getAddressById(UUID.fromString(addressId));
+
+	}
+
 }

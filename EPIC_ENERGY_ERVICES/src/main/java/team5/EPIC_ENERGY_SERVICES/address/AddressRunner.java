@@ -1,4 +1,4 @@
-package team5.EPIC_ENERGY._ERVICES.address;
+package team5.EPIC_ENERGY_SERVICES.address;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -15,8 +15,8 @@ import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 
-import team5.EPIC_ENERGY._ERVICES.municipality.Municipality;
-import team5.EPIC_ENERGY._ERVICES.municipality.MunicipalityRepository;
+import team5.EPIC_ENERGY_SERVICES.municipality.Municipality;
+import team5.EPIC_ENERGY_SERVICES.municipality.MunicipalityRepository;
 
 @Component
 public class AddressRunner implements CommandLineRunner {

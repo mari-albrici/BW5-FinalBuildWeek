@@ -1,13 +1,15 @@
-package team5.EPIC_ENERGY._ERVICES.address;
+package team5.EPIC_ENERGY_SERVICES.address;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
 
-import team5.EPIC_ENERGY._ERVICES.municipality.Municipality;
-import team5.EPIC_ENERGY._ERVICES.municipality.MunicipalityRepository;
+import team5.EPIC_ENERGY_SERVICES.municipality.Municipality;
+import team5.EPIC_ENERGY_SERVICES.municipality.MunicipalityRepository;
 
 @Service
 public class AddressService {
@@ -41,6 +43,13 @@ public class AddressService {
 
 	public List<Address> getAll() {
 		return addressRepo.findAll();
+	}
+
+	public Address getAddressById(UUID id) {
+
+		return addressRepo.findById(id).orElseThrow(
+				() -> new NotFoundException("User not found for id: " + id));
+
 	}
 
 }

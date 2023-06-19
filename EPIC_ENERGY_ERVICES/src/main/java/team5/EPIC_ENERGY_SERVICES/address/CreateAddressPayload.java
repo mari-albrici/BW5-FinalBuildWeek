@@ -1,4 +1,4 @@
-package team5.EPIC_ENERGY._ERVICES.address;
+package team5.EPIC_ENERGY_SERVICES.address;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

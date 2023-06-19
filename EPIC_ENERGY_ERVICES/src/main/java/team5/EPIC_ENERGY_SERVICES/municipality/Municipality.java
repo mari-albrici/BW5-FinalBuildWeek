@@ -1,4 +1,4 @@
-package team5.EPIC_ENERGY._ERVICES.municipality;
+package team5.EPIC_ENERGY_SERVICES.municipality;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
-import team5.EPIC_ENERGY._ERVICES.address.Address;
+import team5.EPIC_ENERGY_SERVICES.address.Address;
 
 @Entity
 @Table(name = "municipalities")
