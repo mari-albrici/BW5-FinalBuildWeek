@@ -33,31 +33,63 @@ public class AddressRunner implements CommandLineRunner {
 			// ("﻿Codice Provincia", "Progressivo del Comune", "Denominazione in
 			// italiano")
 			// Quindi la prima riga deve essere saltata
-			boolean firstRecord = true;
+			boolean firstMunicipalityRecord = true;
 
-			// Richiame il metodo 'csvToArray che ho creato io
-			List<List<String>> records = csvToArray(
+			// Richiame il metodo 'csvToArray che ho creato io per leggere il
+			// csv
+			List<List<String>> municipalities = csvToArray(
 					"src/main/java/team5/EPIC_ENERGY/_ERVICES/municipality/csv/comuni-italiani.csv",
 					';');
 
-			for (List<String> record : records) {
+			// Anche sul secondo file
+			List<List<String>> provinces = csvToArray(
+					"src/main/java/team5/EPIC_ENERGY/_ERVICES/municipality/csv/province-italiane.csv",
+					';');
+
+			Municipality municipality = new Municipality();
+
+			for (List<String> m : municipalities) {
 
 				// Se è il primo record viene omesso il salvataggio su db
-				if (firstRecord) {
-					firstRecord = false;
+				if (firstMunicipalityRecord) {
+					firstMunicipalityRecord = false;
 					continue;
 				}
 
-				Municipality municipality = new Municipality();
-				municipality.setProvinceNumber(Long.parseLong(record.get(0)));
-				municipality
-						.setMunicipalityNumber(Long.parseLong(record.get(1)));
-				municipality.setName(record.get(2));
-				municipality.setProvinceName(record.get(3));
+				municipality.setProvinceNumber(Long.parseLong(m.get(0)));
+				municipality.setMunicipalityNumber(m.get(1));
+				municipality.setName(m.get(2));
+				municipality.setProvinceName(m.get(3));
 
 				municipalityRepo.save(municipality);
 
+				boolean firstProvinceRecord = true;
+
+				for (List<String> p : provinces) {
+
+					// Se è il primo record viene omesso il salvataggio su db
+					if (firstProvinceRecord) {
+						firstProvinceRecord = false;
+						continue;
+					}
+
+					String initials = p.get(0);
+					String province = p.get(1);
+					String region = p.get(2);
+
+					// Cerco la corrispondenza
+					if (m.get(3).equals(p.get(1))) {
+
+						// Aggiorno il valore degli attributi
+						municipality.setRegion(region);
+						municipality.setInitials(initials);
+
+					}
+
+				}
+
 			}
+
 		}
 
 	}

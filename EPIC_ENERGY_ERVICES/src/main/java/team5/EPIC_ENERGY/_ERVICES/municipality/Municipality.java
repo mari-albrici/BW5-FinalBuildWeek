@@ -10,10 +10,10 @@ import lombok.Data;
 @Data
 public class Municipality {
 	@Id
-	Long municipalityNumber;
+	String municipalityNumber;
 	String name;
 	Long provinceNumber;
 	String provinceName;
 	String region;
-	String initial;
+	String initials;
 }
