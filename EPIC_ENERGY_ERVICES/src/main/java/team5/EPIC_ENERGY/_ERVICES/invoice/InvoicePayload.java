@@ -1,8 +1,7 @@
-package payload;
+package team5.EPIC_ENERGY._ERVICES.invoice;
 
 import java.time.LocalDate;
 
-import invoice.InvoiceType;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -10,7 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class InvoicePayload {
+public class InvoicePayload extends Invoice{
 
 	@NotNull(message = "enter a valid year")
 	@Size(min = 4 , max = 4)

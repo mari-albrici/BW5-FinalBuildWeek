@@ -1,13 +1,14 @@
-package service;
+package team5.EPIC_ENERGY._ERVICES.invoice;
 
+import org.springframework.data.domain.Pageable;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
-import invoice.Invoice;
-import payload.InvoicePayload;
-import repositories.InvoiceRepository;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 
 @Service
 public class InvoiceService {
@@ -15,8 +16,8 @@ public class InvoiceService {
 	@Autowired
 	private InvoiceRepository invoiceRepository;
 	
-	public Invoice Create(InvoicePayload i) {
-		Invoice in = new Invoice(i.getYear(), i.getDate(), i.getAmount() ,i.getInvoiceNumber(), i.getType());
+	public Invoice create(Invoice in) {
+
 		return invoiceRepository.save(in);
 	};
 	
@@ -27,6 +28,23 @@ public class InvoiceService {
 	};
 	
 
+// -----------------------------------------------------------------------------
+	public Page<Invoice> find(int page, int size, String sortedBy){
+		if (size < 0) {
+			size = 10;
+		}
+		if (size > 50) {
+			size = 50;
+		}
+		Pageable pageable = (Pageable) PageRequest.of(page, size, Sort.by(sortedBy));
+		
+		return invoiceRepository.findAll(pageable);
+	}
+	
+// ---------------------------------------------------------------------------
+//	public Invoice findInvoiceNumber(String invoiceNumber) throws Exception{
+//		return invoiceRepository.findInvoiceNumber(invoiceNumber).orElseThrow(() -> new Exception("Invoice number not found"));
+//	};
 	
 // ---------------------------------------------------------------------------
 	public Invoice findAndUpdate(UUID id, Invoice invoice) throws Exception{
