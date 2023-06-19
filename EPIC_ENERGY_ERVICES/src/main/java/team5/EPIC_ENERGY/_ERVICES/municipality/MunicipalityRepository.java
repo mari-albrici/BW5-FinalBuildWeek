@@ -9,4 +9,6 @@ public interface MunicipalityRepository
 
 	Optional<Municipality> findByProvinceName(String province);
 
+	Optional<Municipality> findByMunicipalityNumber(String province);
+
 }
