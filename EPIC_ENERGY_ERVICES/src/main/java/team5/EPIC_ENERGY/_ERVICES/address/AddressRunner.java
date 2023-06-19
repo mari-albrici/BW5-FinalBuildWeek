@@ -26,6 +26,7 @@ public class AddressRunner implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
+		// Carica e legge primo file csv (comuni)
 		// Crea un nuovo Array che contiene liste di String
 		List<List<String>> records = new ArrayList<List<String>>();
 
@@ -44,30 +45,34 @@ public class AddressRunner implements CommandLineRunner {
 			}
 		}
 
-		// Il primo record contiene il nome delle colonne:
-		// ("﻿Codice Provincia", "Progressivo del Comune", "Denominazione in
-		// italiano")
-		// Quindi la prima riga deve essere saltata
-		boolean firstRecord = true;
+		// Se la tabella su db e vuota, viene popolata
+		if (municipalityRepo.findAll().isEmpty()) {
+			// Il primo record contiene il nome delle colonne:
+			// ("﻿Codice Provincia", "Progressivo del Comune", "Denominazione in
+			// italiano")
+			// Quindi la prima riga deve essere saltata
+			boolean firstRecord = true;
 
-		for (List<String> record : records) {
+			for (List<String> record : records) {
 
-			// Se è il primo record viene omesso il salvataggio su db
-			if (firstRecord) {
-				firstRecord = false;
-				continue;
+				// Se è il primo record viene omesso il salvataggio su db
+				if (firstRecord) {
+					firstRecord = false;
+					continue;
+				}
+
+				Municipality municipality = new Municipality();
+				municipality.setProvinceNumber(Long.parseLong(record.get(0)));
+				municipality
+						.setMunicipalityNumber(Long.parseLong(record.get(1)));
+				municipality.setName(record.get(2));
+				municipality.setProvinceName(record.get(3));
+
+				municipalityRepo.save(municipality);
+
 			}
-
-			Municipality municipality = new Municipality();
-			municipality.setProvinceNumber(Long.parseLong(record.get(0)));
-			municipality.setMunicipalityNumber(Long.parseLong(record.get(1)));
-			municipality.setName(record.get(2));
-
-			municipalityRepo.save(municipality);
-
 		}
 
-		System.out.println(records);
 	}
 
 }
