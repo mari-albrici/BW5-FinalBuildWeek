@@ -1,9 +1,6 @@
 package team5.EPIC_ENERGY_SERVICES.customers;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,15 +27,21 @@ public class Customer {
     private LocalDate lastContact;
     private BigDecimal annualTurnover;
     private String pec;
-    private long phoneNo;
+    private String phoneNo;
     private String contactEmail;
     private String contactName;
     private String contactLastname;
-    private long contactPhone;
+    private String contactPhone;
     private String legalAddress;
     private String operationalAddress;
+
+    //@ManyToOne
+    //private List<Invoice> invoices;
+
+    //@ManyToOne
+    //private List<Users> users;
+
+    @Enumerated(EnumType.STRING)
     private BusinessType customerType;
-    private List<Users> usersList;
-    private List<Invoice> invoicesList;
 
 }
