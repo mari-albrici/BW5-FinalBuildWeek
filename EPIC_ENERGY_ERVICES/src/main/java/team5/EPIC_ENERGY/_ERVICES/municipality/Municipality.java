@@ -13,4 +13,7 @@ public class Municipality {
 	Long municipalityNumber;
 	String name;
 	Long provinceNumber;
+	String provinceName;
+	String region;
+	String initial;
 }
