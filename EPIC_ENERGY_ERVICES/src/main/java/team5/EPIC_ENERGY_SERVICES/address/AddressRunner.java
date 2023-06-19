@@ -38,12 +38,12 @@ public class AddressRunner implements CommandLineRunner {
 			// Richiame il metodo 'csvToArray che ho creato io per leggere il
 			// csv
 			List<List<String>> municipalities = csvToArray(
-					"src/main/java/team5/EPIC_ENERGY/_ERVICES/municipality/csv/comuni-italiani.csv",
+					"src/main/java/team5/EPIC_ENERGY_SERVICES/municipality/csv/comuni-italiani.csv",
 					';');
 
 			// Anche sul secondo file
 			List<List<String>> provinces = csvToArray(
-					"src/main/java/team5/EPIC_ENERGY/_ERVICES/municipality/csv/province-italiane.csv",
+					"src/main/java/team5/EPIC_ENERGY_SERVICES/municipality/csv/province-italiane.csv",
 					';');
 
 			Municipality municipality = new Municipality();
