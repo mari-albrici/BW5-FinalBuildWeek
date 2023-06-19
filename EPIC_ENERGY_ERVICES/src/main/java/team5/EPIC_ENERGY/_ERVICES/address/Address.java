@@ -9,11 +9,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import team5.EPIC_ENERGY._ERVICES.municipality.Municipality;
 
 @Entity
 @Table(name = "addresses")
 @Data
+@NoArgsConstructor
 public class Address {
 	@Id
 	@GeneratedValue
@@ -24,7 +26,7 @@ public class Address {
 	String zipCode;
 
 	@ManyToOne
-	@JoinColumn(name = "municipality_id")
+	@JoinColumn(name = "municipality_number")
 	Municipality municipality;
 
 	public Address(String street, String buildingNumber, String city,
