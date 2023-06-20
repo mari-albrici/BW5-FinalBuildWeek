@@ -45,7 +45,7 @@ public class InvoiceService {
 	}
 	
 // ---------------------------------------------------------------------------
-	public Invoice findInvoiceNumber(String invoiceNumber) throws Exception{
+	public Invoice findByInvoiceNumber(String invoiceNumber) throws Exception{
 		return invoiceRepository.findByInvoiceNumber(invoiceNumber).orElseThrow(() -> new Exception("Invoice number not found"));
 	};
 	

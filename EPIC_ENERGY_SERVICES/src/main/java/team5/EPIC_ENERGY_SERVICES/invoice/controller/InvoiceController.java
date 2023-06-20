@@ -54,11 +54,11 @@ public class InvoiceController {
 	
 // ------------------------------------------------------------------------------------------------------------------------------------------------
 //	
-//	@GetMapping("/{:invoiceNumber}")
-//	@ResponseStatus(HttpStatus.OK)
-//	public Invoice findInvoiceId(@RequestParam String invoiceNumber) throws Exception{
-//		return invoiceService.findInvoiceNumber(invoiceNumber);
-//	};
+	@GetMapping("/{:invoiceNumber}")
+	@ResponseStatus(HttpStatus.OK)
+	public Invoice findInvoiceId(@RequestParam String invoiceNumber) throws Exception{
+		return invoiceService.findByInvoiceNumber(invoiceNumber);
+	};
 	
 // ------------------------------------------------------------------------------------------------------------------------------------------------
 	
