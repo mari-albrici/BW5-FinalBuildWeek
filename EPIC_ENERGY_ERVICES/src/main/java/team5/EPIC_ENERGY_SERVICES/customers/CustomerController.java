@@ -3,6 +3,7 @@ package team5.EPIC_ENERGY_SERVICES.customers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -23,7 +24,7 @@ public class CustomerController {
     //********** POST NEW CUSTOMER **********
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public Customer saveCustomer(@RequestBody CustomerRegistrationPayload body) {
+    public Customer saveCustomer(@RequestBody @Validated CustomerRegistrationPayload body) {
         return customerService.create(body);
     }
 
