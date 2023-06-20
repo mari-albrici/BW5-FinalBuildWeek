@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 
 import com.github.javafaker.Faker;
 
+import team5.EPIC_ENERGY._ERVICES.invoice.service.InvoiceService;
+
 @Component
 public class InvoiceRunner implements CommandLineRunner{
 

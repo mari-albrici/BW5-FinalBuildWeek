@@ -1,4 +1,4 @@
-package team5.EPIC_ENERGY._ERVICES.invoice;
+package team5.EPIC_ENERGY._ERVICES.invoice.service;
 
 import org.springframework.data.domain.Pageable;
 import java.util.UUID;
@@ -9,6 +9,9 @@ import org.springframework.data.domain.PageRequest;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import team5.EPIC_ENERGY._ERVICES.invoice.Invoice;
+import team5.EPIC_ENERGY._ERVICES.invoice.repositories.InvoiceRepository;
 
 @Service
 public class InvoiceService {
