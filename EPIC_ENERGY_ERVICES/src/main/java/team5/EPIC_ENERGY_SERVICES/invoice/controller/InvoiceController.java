@@ -1,4 +1,4 @@
-package team5.EPIC_ENERGY._ERVICES.invoice.controller;
+package team5.EPIC_ENERGY_SERVICES.invoice.controller;
 
 import java.util.UUID;
 
@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import team5.EPIC_ENERGY._ERVICES.invoice.Invoice;
-import team5.EPIC_ENERGY._ERVICES.invoice.payload.InvoicePayload;
-import team5.EPIC_ENERGY._ERVICES.invoice.service.InvoiceService;
+import team5.EPIC_ENERGY_SERVICES.invoice.Invoice;
+import team5.EPIC_ENERGY_SERVICES.invoice.payload.InvoicePayload;
+import team5.EPIC_ENERGY_SERVICES.invoice.service.InvoiceService;
 
 @RestController
 @RequestMapping("/invoice")

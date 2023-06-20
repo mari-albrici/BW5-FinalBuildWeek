@@ -1,4 +1,4 @@
-package team5.EPIC_ENERGY._ERVICES.invoice.payload;
+package team5.EPIC_ENERGY_SERVICES.invoice.payload;
 
 import java.time.LocalDate;
 
@@ -6,8 +6,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import team5.EPIC_ENERGY._ERVICES.invoice.Invoice;
-import team5.EPIC_ENERGY._ERVICES.invoice.InvoiceType;
+import team5.EPIC_ENERGY_SERVICES.invoice.Invoice;
+import team5.EPIC_ENERGY_SERVICES.invoice.InvoiceType;
 
 @Getter
 @Setter

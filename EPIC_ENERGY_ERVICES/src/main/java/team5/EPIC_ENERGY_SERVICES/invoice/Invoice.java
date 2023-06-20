@@ -1,4 +1,4 @@
-package team5.EPIC_ENERGY._ERVICES.invoice;
+package team5.EPIC_ENERGY_SERVICES.invoice;
 
 import java.time.LocalDate;
 import java.util.UUID;

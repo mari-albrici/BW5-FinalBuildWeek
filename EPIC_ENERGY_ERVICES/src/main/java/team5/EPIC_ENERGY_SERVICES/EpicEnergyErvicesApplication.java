@@ -1,4 +1,4 @@
-package team5.EPIC_ENERGY._ERVICES;
+package team5.EPIC_ENERGY_SERVICES;
 
 
 import org.springframework.boot.SpringApplication;

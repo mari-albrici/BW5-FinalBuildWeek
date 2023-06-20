@@ -1,4 +1,4 @@
-package team5.EPIC_ENERGY._ERVICES.invoice.service;
+package team5.EPIC_ENERGY_SERVICES.invoice.service;
 
 import org.springframework.data.domain.Pageable;
 import java.util.UUID;
@@ -10,8 +10,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import team5.EPIC_ENERGY._ERVICES.invoice.Invoice;
-import team5.EPIC_ENERGY._ERVICES.invoice.repositories.InvoiceRepository;
+import team5.EPIC_ENERGY_SERVICES.invoice.Invoice;
+import team5.EPIC_ENERGY_SERVICES.invoice.repositories.InvoiceRepository;
 
 @Service
 public class InvoiceService {
@@ -45,9 +45,9 @@ public class InvoiceService {
 	}
 	
 // ---------------------------------------------------------------------------
-//	public Invoice findInvoiceNumber(String invoiceNumber) throws Exception{
-//		return invoiceRepository.findInvoiceNumber(invoiceNumber).orElseThrow(() -> new Exception("Invoice number not found"));
-//	};
+	public Invoice findInvoiceNumber(String invoiceNumber) throws Exception{
+		return invoiceRepository.findByInvoiceNumber(invoiceNumber).orElseThrow(() -> new Exception("Invoice number not found"));
+	};
 	
 // ---------------------------------------------------------------------------
 	public Invoice findAndUpdate(UUID id, Invoice invoice) throws Exception{

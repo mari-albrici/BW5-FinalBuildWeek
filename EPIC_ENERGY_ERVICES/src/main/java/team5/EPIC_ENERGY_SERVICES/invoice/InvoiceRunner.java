@@ -1,4 +1,4 @@
-package team5.EPIC_ENERGY._ERVICES.invoice;
+package team5.EPIC_ENERGY_SERVICES.invoice;
 
 import java.time.LocalDate;
 import java.util.Locale;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.github.javafaker.Faker;
 
-import team5.EPIC_ENERGY._ERVICES.invoice.service.InvoiceService;
+import team5.EPIC_ENERGY_SERVICES.invoice.service.InvoiceService;
 
 @Component
 public class InvoiceRunner implements CommandLineRunner{
