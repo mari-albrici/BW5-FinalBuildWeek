@@ -1,9 +1,9 @@
 package team5.EPIC_ENERGY_SERVICES.address;
 
-import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,8 +34,11 @@ public class AddressController {
 
 	// 2. READ (GET METHOD) - http://localhost:3001/address
 	@GetMapping("")
-	public List<Address> getAllAddresses() {
-		return addressService.getAll();
+	public Page<Address> getAllAddresses(
+			@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size,
+			@RequestParam(defaultValue = "id") String sortValue) {
+		return addressService.findWithPagination(page, size, sortValue);
 	}
 
 	// 3. READ (GET METHOD) - http://localhost:3001/address/:addressId

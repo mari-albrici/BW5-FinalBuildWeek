@@ -5,6 +5,10 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import team5.EPIC_ENERGY_SERVICES.municipality.Municipality;
@@ -68,6 +72,16 @@ public class AddressService {
 	public void findByIdAndDelete(UUID id) throws NotFoundException {
 		Address found = this.getAddressById(id);
 		addressRepo.delete(found);
+	}
+
+	public Page<Address> findWithPagination(int page, int size, String sortBy) {
+		if (size < 0)
+			size = 10;
+		if (size > 100)
+			size = 100;
+		Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+
+		return addressRepo.findAll(pageable);
 	}
 
 }
