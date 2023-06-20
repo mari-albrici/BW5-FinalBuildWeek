@@ -1,4 +1,4 @@
-package team5.EPIC_ENERGY._ERVICES.auth;
+package team5.EPIC_ENERGY_SERVICES.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

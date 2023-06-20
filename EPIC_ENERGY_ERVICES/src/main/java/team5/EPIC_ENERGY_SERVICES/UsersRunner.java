@@ -1,4 +1,4 @@
-package team5.EPIC_ENERGY._ERVICES;
+package team5.EPIC_ENERGY_SERVICES;
 
 import java.util.Locale;
 
@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 import com.github.javafaker.Faker;
 
-import team5.EPIC_ENERGY._ERVICES.users.UserService;
-import team5.EPIC_ENERGY._ERVICES.users.payload.UserRegistrationPayload;
+import team5.EPIC_ENERGY_SERVICES.users.UserService;
+import team5.EPIC_ENERGY_SERVICES.users.payload.UserRegistrationPayload;
 
 @Component
 public class UsersRunner implements CommandLineRunner {
@@ -28,7 +28,7 @@ public class UsersRunner implements CommandLineRunner {
 				String password = "1234";
 
 				UserRegistrationPayload user = new UserRegistrationPayload(username, name, surname, email, password);
-				// usersService.create(user);
+				usersService.create(user);
 			} catch (Exception e) {
 				System.out.println(e);
 			}

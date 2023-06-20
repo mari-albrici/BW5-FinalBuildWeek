@@ -1,4 +1,4 @@
-package team5.EPIC_ENERGY._ERVICES.users;
+package team5.EPIC_ENERGY_SERVICES.users;
 
 import java.util.UUID;
 
@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import team5.EPIC_ENERGY._ERVICES.exceptions.NotFoundException;
-import team5.EPIC_ENERGY._ERVICES.users.payload.UserRegistrationPayload;
+import team5.EPIC_ENERGY_SERVICES.exceptions.NotFoundException;
+import team5.EPIC_ENERGY_SERVICES.users.payload.UserRegistrationPayload;
 
 @RestController
 @RequestMapping("/users")

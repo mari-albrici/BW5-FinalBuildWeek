@@ -1,4 +1,4 @@
-package team5.EPIC_ENERGY._ERVICES.auth;
+package team5.EPIC_ENERGY_SERVICES.auth;
 
 import java.io.IOException;
 
@@ -14,10 +14,10 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import team5.EPIC_ENERGY._ERVICES.exceptions.NotFoundException;
-import team5.EPIC_ENERGY._ERVICES.exceptions.UnauthorizedException;
-import team5.EPIC_ENERGY._ERVICES.users.User;
-import team5.EPIC_ENERGY._ERVICES.users.UserService;
+import team5.EPIC_ENERGY_SERVICES.exceptions.NotFoundException;
+import team5.EPIC_ENERGY_SERVICES.exceptions.UnauthorizedException;
+import team5.EPIC_ENERGY_SERVICES.users.User;
+import team5.EPIC_ENERGY_SERVICES.users.UserService;
 
 @Component
 public class JWTAuthFilter extends OncePerRequestFilter {

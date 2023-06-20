@@ -1,4 +1,4 @@
-package team5.EPIC_ENERGY._ERVICES.users.payload;
+package team5.EPIC_ENERGY_SERVICES.users.payload;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;

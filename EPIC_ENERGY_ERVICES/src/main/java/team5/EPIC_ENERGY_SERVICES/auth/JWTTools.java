@@ -1,4 +1,4 @@
-package team5.EPIC_ENERGY._ERVICES.auth;
+package team5.EPIC_ENERGY_SERVICES.auth;
 
 import java.util.Date;
 
@@ -9,8 +9,8 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.security.Keys;
-import team5.EPIC_ENERGY._ERVICES.exceptions.UnauthorizedException;
-import team5.EPIC_ENERGY._ERVICES.users.User;
+import team5.EPIC_ENERGY_SERVICES.exceptions.UnauthorizedException;
+import team5.EPIC_ENERGY_SERVICES.users.User;
 
 @Component
 public class JWTTools {

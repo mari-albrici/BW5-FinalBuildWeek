@@ -1,4 +1,4 @@
-package team5.EPIC_ENERGY._ERVICES.exceptions;
+package team5.EPIC_ENERGY_SERVICES.exceptions;
 
 public class BadRequestException extends RuntimeException {
 	public BadRequestException(String message) {

@@ -1,4 +1,4 @@
-package team5.EPIC_ENERGY._ERVICES.users;
+package team5.EPIC_ENERGY_SERVICES.users;
 
 import java.util.Collection;
 import java.util.List;

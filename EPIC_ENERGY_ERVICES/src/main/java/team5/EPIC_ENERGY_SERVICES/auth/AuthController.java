@@ -1,4 +1,4 @@
-package team5.EPIC_ENERGY._ERVICES.auth;
+package team5.EPIC_ENERGY_SERVICES.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import team5.EPIC_ENERGY._ERVICES.auth.payload.AuthenticationSuccessfullPayload;
-import team5.EPIC_ENERGY._ERVICES.exceptions.NotFoundException;
-import team5.EPIC_ENERGY._ERVICES.exceptions.UnauthorizedException;
-import team5.EPIC_ENERGY._ERVICES.users.User;
-import team5.EPIC_ENERGY._ERVICES.users.UserService;
-import team5.EPIC_ENERGY._ERVICES.users.payload.UserLoginPayload;
-import team5.EPIC_ENERGY._ERVICES.users.payload.UserRegistrationPayload;
+import team5.EPIC_ENERGY_SERVICES.auth.payload.AuthenticationSuccessfullPayload;
+import team5.EPIC_ENERGY_SERVICES.exceptions.NotFoundException;
+import team5.EPIC_ENERGY_SERVICES.exceptions.UnauthorizedException;
+import team5.EPIC_ENERGY_SERVICES.users.User;
+import team5.EPIC_ENERGY_SERVICES.users.UserService;
+import team5.EPIC_ENERGY_SERVICES.users.payload.UserLoginPayload;
+import team5.EPIC_ENERGY_SERVICES.users.payload.UserRegistrationPayload;
 
 @RestController
 @RequestMapping("/auth")
