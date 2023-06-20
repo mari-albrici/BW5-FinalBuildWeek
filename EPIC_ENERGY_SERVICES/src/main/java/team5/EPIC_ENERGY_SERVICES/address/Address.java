@@ -10,6 +10,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import team5.EPIC_ENERGY_SERVICES.customers.Customer;
 import team5.EPIC_ENERGY_SERVICES.municipality.Municipality;
 
 @Entity
@@ -28,6 +29,10 @@ public class Address {
 	@ManyToOne
 	@JoinColumn(name = "municipality_number")
 	Municipality municipality;
+
+	@ManyToOne
+	@JoinColumn(name = "customer_id")
+	private Customer customer;
 
 	public Address(String street, String buildingNumber, String city,
 			String zipCode, Municipality municipality) {
