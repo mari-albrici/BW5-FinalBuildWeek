@@ -34,8 +34,11 @@ public class AuthController {
 	public ResponseEntity<AuthenticationSuccessfullPayload> login(@RequestBody UserLoginPayload body)
 			throws NotFoundException {
 		User user = usersService.findByEmail(body.getEmail());
-		if (!body.getPassword().matches(user.getPassword()))
+
+		if (!body.getPassword().matches(user.getPassword())) {
 			throw new UnauthorizedException("Credenziali non valide");
+		}
+
 		String token = JWTTools.createToken(user);
 		return new ResponseEntity<>(new AuthenticationSuccessfullPayload(token), HttpStatus.OK);
 	}

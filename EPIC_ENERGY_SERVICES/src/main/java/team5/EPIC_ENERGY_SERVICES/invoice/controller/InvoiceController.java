@@ -5,6 +5,8 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +25,7 @@ import team5.EPIC_ENERGY_SERVICES.invoice.service.InvoiceService;
 
 @RestController
 @RequestMapping("/invoice")
+@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
 public class InvoiceController {
 	
 	@Autowired
@@ -38,6 +41,7 @@ public class InvoiceController {
 // -------------------------------------------------------------------------------------------------------------------------------------------------
 	
 	@PostMapping("")
+	@PostAuthorize("hasRole('ADMIN')")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Invoice createInvoice(@RequestBody @Validated InvoicePayload inp) {
 		return invoiceService.create(inp);
@@ -63,6 +67,7 @@ public class InvoiceController {
 // ------------------------------------------------------------------------------------------------------------------------------------------------
 	
 	@PutMapping("/{:id}")
+	@PostAuthorize("hasRole('ADMIN')")
 	@ResponseStatus(HttpStatus.OK)
 	public Invoice findAndUpdate(@PathVariable UUID id, @RequestBody Invoice invoice) throws Exception{
 		return invoiceService.findAndUpdate(id, invoice);
@@ -72,6 +77,7 @@ public class InvoiceController {
 // ------------------------------------------------------------------------------------------------------------------------------------------------
 	
 	@DeleteMapping("/{:id}")
+	@PostAuthorize("hasRole('ADMIN')")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteInvoice(@PathVariable UUID id) throws Exception{
 		invoiceService.remove(id);

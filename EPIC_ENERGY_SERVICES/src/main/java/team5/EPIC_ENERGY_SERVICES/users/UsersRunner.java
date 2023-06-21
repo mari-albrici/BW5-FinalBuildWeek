@@ -1,4 +1,4 @@
-package team5.EPIC_ENERGY_SERVICES;
+package team5.EPIC_ENERGY_SERVICES.users;
 
 import java.util.Locale;
 
