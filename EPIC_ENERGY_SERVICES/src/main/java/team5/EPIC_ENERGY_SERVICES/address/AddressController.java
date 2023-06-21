@@ -51,9 +51,9 @@ public class AddressController {
 	// 4. UPDATE (PUT METHOD) - http://localhost:3001/address/:addressId + req.
 	// body
 	@PutMapping("/{addressId}")
-	public Address updateAddress(@PathVariable UUID userId,
+	public Address updateAddress(@PathVariable UUID addressId,
 			@RequestBody Address body) throws Exception {
-		return addressService.findByIdAndUpdate(userId, body);
+		return addressService.findByIdAndUpdate(addressId, body);
 	}
 
 	// 5. DELETE (DELETE METHOD) - http://localhost:3001/address/:addressId
