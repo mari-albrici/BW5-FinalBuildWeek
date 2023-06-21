@@ -1,14 +1,11 @@
 package team5.EPIC_ENERGY_SERVICES.invoice;
 
 import java.time.LocalDate;
-import java.util.Locale;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
-import com.github.javafaker.Faker;
 
 import team5.EPIC_ENERGY_SERVICES.customers.CustomerService;
 import team5.EPIC_ENERGY_SERVICES.invoice.service.InvoiceService;
@@ -25,7 +22,7 @@ public class InvoiceRunner implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		
-		Invoice i1 = new Invoice(1976, LocalDate.of(1976, 6, 19), 456.78, "9876543210", InvoiceType.PAID, customerService.findById(UUID.fromString("0b610dba-aa6b-444f-8957-74049323b8dc")));
+		Invoice i1 = new Invoice(1976, LocalDate.of(1976, 6, 19), 456.78, "9876543210", InvoiceType.PAID, customerService.findById(UUID.fromString("0e40200f-53d6-422d-a3c8-fdc3fef007fb")));
 		
 //		Invoice i2 = new Invoice(2023, LocalDate.of(2023, 6, 19), 789.01, "2468135790", InvoiceType.ISSUED);
 //		
