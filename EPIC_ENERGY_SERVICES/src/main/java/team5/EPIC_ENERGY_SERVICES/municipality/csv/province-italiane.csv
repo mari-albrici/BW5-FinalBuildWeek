@@ -1,4 +1,4 @@
-﻿Sigla;Provincia;Regione
+Sigla;Provincia;Regione
 AG;Agrigento;Sicilia
 AL;Alessandria;Piemonte
 AN;Ancona;Marche
@@ -43,7 +43,7 @@ GO;Gorizia;Friuli Venezia Giulia
 GR;Grosseto;Toscana
 IM;Imperia;Liguria
 IS;Isernia;Molise
-SP;La-Spezia;Liguria
+SP;La Spezia;Liguria
 LT;Latina;Lazio
 LE;Lecce;Puglia
 LC;Lecco;Lombardia
@@ -103,7 +103,7 @@ TS;Trieste;Friuli Venezia Giulia
 UD;Udine;Friuli Venezia Giulia
 VA;Varese;Lombardia
 VE;Venezia;Veneto
-VB;Verbania;Piemonte
+VB;Verbano-Cusio-Ossola;Piemonte
 VC;Vercelli;Piemonte
 VR;Verona;Veneto
 VV;Vibo-Valentia;Calabria
