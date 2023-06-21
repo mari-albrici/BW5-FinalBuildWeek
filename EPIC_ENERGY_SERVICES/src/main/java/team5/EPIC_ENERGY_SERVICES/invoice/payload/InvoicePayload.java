@@ -6,7 +6,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import team5.EPIC_ENERGY_SERVICES.customers.Customer;
 import team5.EPIC_ENERGY_SERVICES.invoice.Invoice;
 import team5.EPIC_ENERGY_SERVICES.invoice.InvoiceType;
 

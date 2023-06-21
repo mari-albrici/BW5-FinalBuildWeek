@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import team5.EPIC_ENERGY_SERVICES.exceptions.NotFoundException;
 import team5.EPIC_ENERGY_SERVICES.invoice.Invoice;
 import team5.EPIC_ENERGY_SERVICES.invoice.repositories.InvoiceRepository;
 
@@ -26,8 +27,8 @@ public class InvoiceService {
 	
 	
 // ---------------------------------------------------------------------------
-	public Invoice findById(UUID id) throws Exception{
-		return invoiceRepository.findById(id).orElseThrow(() -> new Exception("invoice not found"));
+	public Invoice findById(UUID id) throws NotFoundException{
+		return invoiceRepository.findById(id).orElseThrow(() -> new NotFoundException("invoice not found"));
 	};
 	
 
@@ -45,12 +46,12 @@ public class InvoiceService {
 	}
 	
 // ---------------------------------------------------------------------------
-	public Invoice findByInvoiceNumber(String invoiceNumber) throws Exception{
-		return invoiceRepository.findByInvoiceNumber(invoiceNumber).orElseThrow(() -> new Exception("Invoice number not found"));
+	public Invoice findByInvoiceNumber(String invoiceNumber) throws NotFoundException{
+		return invoiceRepository.findByInvoiceNumber(invoiceNumber).orElseThrow(() -> new NotFoundException("Invoice number not found"));
 	};
 	
 // ---------------------------------------------------------------------------
-	public Invoice findAndUpdate(UUID id, Invoice invoice) throws Exception{
+	public Invoice findByIdAndUpdate(UUID id, Invoice invoice) throws NotFoundException{
 		Invoice i = this.findById(id);
 		
 		i.setYear(invoice.getYear());
@@ -65,7 +66,7 @@ public class InvoiceService {
 	
 	
 // -----------------------------------------------------------------------------
-	public void remove(UUID id) throws Exception{
+	public void findByIdAndDelete(UUID id) throws NotFoundException{
 		Invoice i = this.findById(id);
 		
 		invoiceRepository.delete(i);

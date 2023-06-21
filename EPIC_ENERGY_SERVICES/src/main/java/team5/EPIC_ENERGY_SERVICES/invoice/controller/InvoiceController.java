@@ -65,7 +65,7 @@ public class InvoiceController {
 	@PutMapping("/{:id}")
 	@ResponseStatus(HttpStatus.OK)
 	public Invoice findAndUpdate(@PathVariable UUID id, @RequestBody Invoice invoice) throws Exception{
-		return invoiceService.findAndUpdate(id, invoice);
+		return invoiceService.findByIdAndUpdate(id, invoice);
 	};
 	
 	
@@ -74,6 +74,6 @@ public class InvoiceController {
 	@DeleteMapping("/{:id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteInvoice(@PathVariable UUID id) throws Exception{
-		invoiceService.remove(id);
+		invoiceService.findByIdAndDelete(id);
 	};
 }
