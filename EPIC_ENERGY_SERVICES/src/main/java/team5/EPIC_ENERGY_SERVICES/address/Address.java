@@ -28,7 +28,7 @@ public class Address {
 	private String zipCode;
 
 	@ManyToOne
-	@JoinColumn(name = "municipality_number")
+	@JoinColumn(name = "municipality_id")
 	Municipality municipality;
 
 	@OneToOne(mappedBy = "legalAddress")

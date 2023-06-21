@@ -22,5 +22,5 @@ public class CreateAddressPayload {
 
 	@NotNull(message = "Municipality Number is required")
 
-	String municipalityNumber;
+	String municipalityId;
 }

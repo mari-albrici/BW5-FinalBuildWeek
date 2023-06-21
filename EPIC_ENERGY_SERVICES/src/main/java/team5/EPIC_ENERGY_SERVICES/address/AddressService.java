@@ -26,7 +26,7 @@ public class AddressService {
 	public Address save(CreateAddressPayload payload) {
 
 		Optional<Municipality> municipalityFound = municipalityRepo
-				.findByMunicipalityNumber(payload.getMunicipalityNumber());
+				.findById(UUID.fromString(payload.getMunicipalityId()));
 
 		if (municipalityFound.isPresent()) {
 			Municipality municipality = municipalityFound.get();
@@ -39,7 +39,7 @@ public class AddressService {
 		} else {
 			throw new IllegalArgumentException(
 					"Municipality not found for number: "
-							+ payload.getMunicipalityNumber());
+							+ payload.getMunicipalityId());
 		}
 
 	}
