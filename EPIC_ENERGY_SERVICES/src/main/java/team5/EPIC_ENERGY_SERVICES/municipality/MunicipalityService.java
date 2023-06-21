@@ -5,7 +5,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import team5.EPIC_ENERGY_SERVICES.address.NotFoundException;
+import team5.EPIC_ENERGY_SERVICES.exceptions.NotFoundException;
 
 @Service
 public class MunicipalityService {
