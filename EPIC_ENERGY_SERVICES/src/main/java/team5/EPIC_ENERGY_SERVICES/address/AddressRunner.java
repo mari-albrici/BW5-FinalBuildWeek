@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.text.similarity.JaccardSimilarity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -17,37 +18,39 @@ import com.opencsv.CSVReaderBuilder;
 
 import team5.EPIC_ENERGY_SERVICES.municipality.Municipality;
 import team5.EPIC_ENERGY_SERVICES.municipality.MunicipalityRepository;
+import team5.EPIC_ENERGY_SERVICES.province.Province;
+import team5.EPIC_ENERGY_SERVICES.province.ProvinceRepository;
 
 @Component
 public class AddressRunner implements CommandLineRunner {
 
 	@Autowired
 	MunicipalityRepository municipalityRepo;
+	@Autowired
+	ProvinceRepository provinceRepo;
 
 	@Override
 	public void run(String... args) throws Exception {
 
-		// Se la tabella su db e vuota, viene popolata
-		if (municipalityRepo.findAll().isEmpty()) {
-			// Il primo record contiene il nome delle colonne:
-			// ("﻿Codice Provincia", "Progressivo del Comune", "Denominazione in
-			// italiano")
+		// Se le tabelle su db sono vuote, vengono popolate
+		if (municipalityRepo.findAll().isEmpty()
+				&& provinceRepo.findAll().isEmpty()) {
+			// Il primo record contiene il nome delle colonne
 			// Quindi la prima riga deve essere saltata
 			boolean firstMunicipalityRecord = true;
+			boolean firstProvinceRecord = true;
 
-			// Richiame il metodo 'csvToArray che ho creato io per leggere il
-			// csv
+			// Richiamo il metodo 'csvToArray che ho creato per leggere il
+			// contenuto dei csv e salvarli su array
 			List<List<String>> municipalities = csvToArray(
 					"src/main/java/team5/EPIC_ENERGY_SERVICES/municipality/csv/comuni-italiani.csv",
 					';');
 
-			// Anche sul secondo file
 			List<List<String>> provinces = csvToArray(
 					"src/main/java/team5/EPIC_ENERGY_SERVICES/municipality/csv/province-italiane.csv",
 					';');
 
-			Municipality municipality = new Municipality();
-
+			int i = 1;
 			for (List<String> m : municipalities) {
 
 				// Se è il primo record viene omesso il salvataggio su db
@@ -56,15 +59,24 @@ public class AddressRunner implements CommandLineRunner {
 					continue;
 				}
 
+				Municipality municipality = new Municipality();
+
 				municipality.setProvinceNumber(Long.parseLong(m.get(0)));
-				municipality.setMunicipalityNumber(m.get(1));
+
+				// Fix del valore #RIF!
+				if (m.get(3).equals("Sassari")) {
+					municipality.setMunicipalityNumber((long) i);
+					i++;
+
+				} else {
+
+					municipality
+							.setMunicipalityNumber(Long.parseLong(m.get(1)));
+				}
 				municipality.setName(m.get(2));
 				municipality.setProvinceName(m.get(3));
 
-				municipalityRepo.save(municipality);
-
-				boolean firstProvinceRecord = true;
-
+				// Itero sulle provincie e le salvo su db
 				for (List<String> p : provinces) {
 
 					// Se è il primo record viene omesso il salvataggio su db
@@ -73,21 +85,38 @@ public class AddressRunner implements CommandLineRunner {
 						continue;
 					}
 
-					String initials = p.get(0);
-					String province = p.get(1);
-					String region = p.get(2);
+					Province province = new Province();
+					province.setInitials(p.get(0));
+					province.setName(p.get(1));
+					province.setRegion(p.get(2));
 
-					// Cerco la corrispondenza
-					if (m.get(3).equals(p.get(1))) {
+					provinceRepo.save(province);
 
-						// Aggiorno il valore degli attributi
-						municipality.setRegion(region);
-						municipality.setInitials(initials);
+					// Cerco la corrispondenza tra comune e provincia,
+					// in molti casi il nome delle provincie nei due file non e
+					// scritto uguale
 
+					String provinceCSV = m.get(3);
+					String provinceDB = p.get(1);
+
+					JaccardSimilarity jaccardSimilarity = new JaccardSimilarity();
+					double similarity = jaccardSimilarity.apply(provinceCSV,
+							provinceDB);
+
+					if (similarity >= 0.8) {
+						municipality.setProvince(province);
 					}
+
+//					if (m.get(3).equals(p.get(1)) || m.get(3).split(" ")[0]
+//							.equals(p.get(1).split(" ")[0])) {
+//
+//						municipality.setProvince(province);
+//
+//					}
 
 				}
 
+				municipalityRepo.save(municipality);
 			}
 
 		}
