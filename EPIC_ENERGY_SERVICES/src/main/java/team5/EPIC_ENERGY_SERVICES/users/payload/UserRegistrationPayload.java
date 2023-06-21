@@ -20,6 +20,8 @@ public class UserRegistrationPayload {
 	String email;
 	@NotNull(message = "La password è obbligatoria")
 	String password;
+//	@NotNull(message = "Il customer è obbligatorio")
+//	UUID customerId;
 
 	public UserRegistrationPayload(
 			@NotNull(message = "Lo username è obbligatorio") @Size(min = 3, max = 30, message = "Username min 3 caratteri, massimo 30") String username,
@@ -33,6 +35,7 @@ public class UserRegistrationPayload {
 		this.surname = surname;
 		this.email = email;
 		this.password = password;
+//		this.customerId = customerId;
 	}
 
 }

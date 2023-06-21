@@ -26,6 +26,7 @@ public class UsersRunner implements CommandLineRunner {
 				String surname = faker.name().lastName();
 				String email = faker.internet().emailAddress();
 				String password = "1234";
+//				UUID customerId = UUID.fromString("216c6570-474c-4d1b-ba01-938a207f8d2c");
 
 				UserRegistrationPayload user = new UserRegistrationPayload(username, name, surname, email, password);
 				usersService.create(user);
