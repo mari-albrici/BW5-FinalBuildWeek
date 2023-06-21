@@ -13,9 +13,12 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import team5.EPIC_ENERGY_SERVICES.customers.Customer;
 
 @Entity
 @Table(name = "users")
@@ -33,8 +36,9 @@ public class User implements UserDetails {
 	private String password;
 	@Enumerated(EnumType.STRING)
 	private Role role;
-//	@ManyToOne
-//	private Client client;
+	@ManyToOne
+	@JoinColumn(name = "customer")
+	private Customer customer;
 
 	public User(String username, String name, String surname, String email, String password) {
 		this.username = username;
@@ -42,7 +46,7 @@ public class User implements UserDetails {
 		this.surname = surname;
 		this.email = email;
 		this.password = password;
-//		this.client = client;
+		this.customer = null;
 		this.role = Role.USER;
 	}
 
