@@ -22,7 +22,7 @@ public class InvoiceRunner implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		
-		Invoice i1 = new Invoice(1976, LocalDate.of(1976, 6, 19), 456.78, "9876543210", InvoiceType.PAID, customerService.findById(UUID.fromString("0e40200f-53d6-422d-a3c8-fdc3fef007fb")));
+	//	Invoice i1 = new Invoice(1976, LocalDate.of(1976, 6, 19), 456.78, "9876543210", InvoiceType.PAID, customerService.findById(UUID.fromString("0e40200f-53d6-422d-a3c8-fdc3fef007fb")));
 		
 //		Invoice i2 = new Invoice(2023, LocalDate.of(2023, 6, 19), 789.01, "2468135790", InvoiceType.ISSUED);
 //		
@@ -82,7 +82,7 @@ public class InvoiceRunner implements CommandLineRunner{
 //		
 //		Invoice i30 = new Invoice(1970, LocalDate.of(1970, 6, 19), 456.78, "1357924680", InvoiceType.PAID);
 //		
-		inService.create(i1);
+//		inService.create(i1);
 //		inService.create(i2);
 //		inService.create(i3);
 //		inService.create(i4);

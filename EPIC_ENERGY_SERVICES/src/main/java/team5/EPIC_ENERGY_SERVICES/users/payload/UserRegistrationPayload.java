@@ -6,7 +6,6 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-
 public class UserRegistrationPayload {
 	@NotNull(message = "Il nome è obbligatorio")
 	@Size(min = 3, max = 30, message = "Nome min 3 caratteri, massimo 30")
