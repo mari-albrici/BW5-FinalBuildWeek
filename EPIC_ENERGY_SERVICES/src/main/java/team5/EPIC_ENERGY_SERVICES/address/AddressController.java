@@ -42,7 +42,7 @@ public class AddressController {
 	}
 
 	// 3. READ (GET METHOD) - http://localhost:3001/address/:addressId
-	@GetMapping("/id/{addressId}")
+	@GetMapping("/{addressId}")
 	public Address getAddressById(@PathVariable String addressId) {
 		return addressService.getAddressById(UUID.fromString(addressId));
 
@@ -57,10 +57,10 @@ public class AddressController {
 	}
 
 	// 5. DELETE (DELETE METHOD) - http://localhost:3001/address/:addressId
-	@DeleteMapping("/{address}")
+	@DeleteMapping("/{addressId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deleteUser(@PathVariable UUID address) {
-		addressService.findByIdAndDelete(address);
+	public void deleteUser(@PathVariable UUID addressId) {
+		addressService.findByIdAndDelete(addressId);
 	}
 
 }
