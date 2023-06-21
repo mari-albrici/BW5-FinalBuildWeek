@@ -58,11 +58,11 @@ public class InvoiceController {
 	
 // ------------------------------------------------------------------------------------------------------------------------------------------------
 //	
-//	@GetMapping("/{:invoiceNumber}")
-//	@ResponseStatus(HttpStatus.OK)
-//	public Invoice findInvoiceId(@RequestParam String invoiceNumber) throws Exception{
-//		return invoiceService.findInvoiceNumber(invoiceNumber);
-//	};
+	@GetMapping("/{:invoiceNumber}")
+	@ResponseStatus(HttpStatus.OK)
+	public Invoice findInvoiceId(@RequestParam String invoiceNumber) throws Exception{
+		return invoiceService.findByInvoiceNumber(invoiceNumber);
+	};
 	
 // ------------------------------------------------------------------------------------------------------------------------------------------------
 	
@@ -70,7 +70,7 @@ public class InvoiceController {
 	@PostAuthorize("hasRole('ADMIN')")
 	@ResponseStatus(HttpStatus.OK)
 	public Invoice findAndUpdate(@PathVariable UUID id, @RequestBody Invoice invoice) throws Exception{
-		return invoiceService.findAndUpdate(id, invoice);
+		return invoiceService.findByIdAndUpdate(id, invoice);
 	};
 	
 	
@@ -80,6 +80,6 @@ public class InvoiceController {
 	@PostAuthorize("hasRole('ADMIN')")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteInvoice(@PathVariable UUID id) throws Exception{
-		invoiceService.remove(id);
+		invoiceService.findByIdAndDelete(id);
 	};
 }

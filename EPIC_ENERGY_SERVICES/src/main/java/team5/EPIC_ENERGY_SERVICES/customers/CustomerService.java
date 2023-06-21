@@ -5,6 +5,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import team5.EPIC_ENERGY_SERVICES.exceptions.NotFoundException;
+
 import java.util.List;
 import java.util.UUID;
 
