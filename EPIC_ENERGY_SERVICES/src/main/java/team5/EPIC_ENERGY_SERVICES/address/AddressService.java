@@ -52,7 +52,7 @@ public class AddressService {
 	public Address getAddressById(UUID id) {
 
 		return addressRepo.findById(id).orElseThrow(
-				() -> new NotFoundException("User not found for id: " + id));
+				() -> new NotFoundException("Address not found for id: " + id));
 
 	}
 
