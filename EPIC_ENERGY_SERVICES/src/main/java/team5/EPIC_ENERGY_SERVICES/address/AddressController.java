@@ -57,7 +57,8 @@ public class AddressController {
 	@PutMapping("/{addressId}")
 	@PostAuthorize("hasAuthority('ADMIN')")
 	public Address updateAddress(@PathVariable String addressId,
-			@RequestBody CreateAddressPayload body) throws Exception {
+			@RequestBody @Validated CreateAddressPayload body)
+			throws Exception {
 		return addressService.findByIdAndUpdate(UUID.fromString(addressId),
 				body);
 	}
