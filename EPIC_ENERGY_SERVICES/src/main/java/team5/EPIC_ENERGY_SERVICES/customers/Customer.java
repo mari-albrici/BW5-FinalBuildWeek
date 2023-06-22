@@ -50,6 +50,14 @@ public class Customer {
 	private String contactLastname;
 	private String contactPhone;
 
+	@OneToOne
+	@JoinColumn(name = "legal_address_id")
+	private Address legalAddress;
+
+	@OneToOne
+	@JoinColumn(name = "operational_address_id")
+	private Address operationalAddress;
+
     @Enumerated(EnumType.STRING)
     private BusinessType customerType;
 
