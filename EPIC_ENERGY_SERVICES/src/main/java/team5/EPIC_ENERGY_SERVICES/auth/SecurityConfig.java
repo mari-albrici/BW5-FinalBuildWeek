@@ -33,9 +33,8 @@ public class SecurityConfig {
 				.requestMatchers(HttpMethod.GET, "/users").authenticated());
 		http.authorizeHttpRequests(
 				auth -> auth.requestMatchers("/users/{id}").authenticated());
-
 		http.authorizeHttpRequests(auth -> auth
-				.requestMatchers("/customers/{id}").authenticated());
+				.requestMatchers(HttpMethod.GET,"/customers").authenticated());
 
 		http.addFilterBefore(jwtAuthFilter,
 				UsernamePasswordAuthenticationFilter.class);
