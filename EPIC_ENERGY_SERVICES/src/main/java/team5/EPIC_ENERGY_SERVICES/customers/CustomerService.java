@@ -43,7 +43,6 @@ public class CustomerService {
         found.setContactPhone(c.getContactPhone());
         found.setPec(c.getPec());
         found.setPhoneNo(c.getPhoneNo());
-        found.setLegalAddress(c.getLegalAddress());
 
         return customerRepo.save(found);
     }

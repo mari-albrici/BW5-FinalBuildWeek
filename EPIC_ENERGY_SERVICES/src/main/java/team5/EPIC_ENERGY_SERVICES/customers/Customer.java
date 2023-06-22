@@ -1,7 +1,16 @@
 package team5.EPIC_ENERGY_SERVICES.customers;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import team5.EPIC_ENERGY_SERVICES.invoice.Invoice;
+import team5.EPIC_ENERGY_SERVICES.users.User;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import jakarta.persistence.Entity;
@@ -49,13 +58,7 @@ public class Customer {
 	@JoinColumn(name = "operational_address_id")
 	private Address operationalAddress;
 
-	// @ManyToOne
-	// private List<Invoice> invoices;
-
-	// @ManyToOne
-	// private List<Users> users;
-
-	@Enumerated(EnumType.STRING)
-	private BusinessType customerType;
+    @Enumerated(EnumType.STRING)
+    private BusinessType customerType;
 
 }

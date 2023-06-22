@@ -121,7 +121,8 @@ public class AddressRunner implements CommandLineRunner {
 
 		}
 
-	}
+
+}
 
 	// Creo un metodo per riutlizzare il codice
 	private static List<List<String>> csvToArray(String filePath,

@@ -18,9 +18,9 @@ public class InvoiceRunner implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-
-//		Invoice i1 = new Invoice(1976, LocalDate.of(1976, 6, 19), 456.78, "9876543210", InvoiceType.PAID, customerService.findById(UUID.fromString("0e40200f-53d6-422d-a3c8-fdc3fef007fb")));
-
+		
+	//	Invoice i1 = new Invoice(1976, LocalDate.of(1976, 6, 19), 456.78, "9876543210", InvoiceType.PAID, customerService.findById(UUID.fromString("0e40200f-53d6-422d-a3c8-fdc3fef007fb")));
+		
 //		Invoice i2 = new Invoice(2023, LocalDate.of(2023, 6, 19), 789.01, "2468135790", InvoiceType.ISSUED);
 //		
 //		Invoice i3 = new Invoice(2022, LocalDate.of(2022, 6, 19), 234.56, "1357924680", InvoiceType.TO_PAY);
