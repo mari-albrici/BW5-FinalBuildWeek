@@ -31,98 +31,110 @@ public class AddressRunner implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		Thread addressThread = new Thread(() -> {
+			try {
+				// Se le tabelle su db sono vuote, vengono popolate
+				if (municipalityRepo.findAll().isEmpty()
+						&& provinceRepo.findAll().isEmpty()) {
+					// Il primo record contiene il nome delle colonne
+					// Quindi la prima riga deve essere saltata
+					boolean firstMunicipalityRecord = true;
+					boolean firstProvinceRecord = true;
 
-		// Se le tabelle su db sono vuote, vengono popolate
-		if (municipalityRepo.findAll().isEmpty()
-				&& provinceRepo.findAll().isEmpty()) {
-			// Il primo record contiene il nome delle colonne
-			// Quindi la prima riga deve essere saltata
-			boolean firstMunicipalityRecord = true;
-			boolean firstProvinceRecord = true;
+					// Richiamo il metodo 'csvToArray che ho creato per leggere
+					// il
+					// contenuto dei csv e salvarli su array
+					List<List<String>> municipalities = csvToArray(
+							"src/main/java/team5/EPIC_ENERGY_SERVICES/municipality/csv/comuni-italiani.csv",
+							';');
 
-			// Richiamo il metodo 'csvToArray che ho creato per leggere il
-			// contenuto dei csv e salvarli su array
-			List<List<String>> municipalities = csvToArray(
-					"src/main/java/team5/EPIC_ENERGY_SERVICES/municipality/csv/comuni-italiani.csv",
-					';');
+					List<List<String>> provinces = csvToArray(
+							"src/main/java/team5/EPIC_ENERGY_SERVICES/municipality/csv/province-italiane.csv",
+							';');
 
-			List<List<String>> provinces = csvToArray(
-					"src/main/java/team5/EPIC_ENERGY_SERVICES/municipality/csv/province-italiane.csv",
-					';');
+					int i = 1;
+					for (List<String> m : municipalities) {
 
-			int i = 1;
-			for (List<String> m : municipalities) {
+						// Se è il primo record viene omesso il salvataggio su
+						// db
+						if (firstMunicipalityRecord) {
+							firstMunicipalityRecord = false;
+							continue;
+						}
 
-				// Se è il primo record viene omesso il salvataggio su db
-				if (firstMunicipalityRecord) {
-					firstMunicipalityRecord = false;
-					continue;
-				}
+						Municipality municipality = new Municipality();
 
-				Municipality municipality = new Municipality();
+						municipality
+								.setProvinceNumber(Long.parseLong(m.get(0)));
 
-				municipality.setProvinceNumber(Long.parseLong(m.get(0)));
+						// Fix del valore #RIF!
+						if (m.get(3).equals("Sassari")) {
+							municipality.setMunicipalityNumber((long) i);
+							i++;
 
-				// Fix del valore #RIF!
-				if (m.get(3).equals("Sassari")) {
-					municipality.setMunicipalityNumber((long) i);
-					i++;
+						} else {
 
-				} else {
+							municipality.setMunicipalityNumber(
+									Long.parseLong(m.get(1)));
+						}
+						municipality.setName(m.get(2));
+						municipality.setProvinceName(m.get(3));
 
-					municipality
-							.setMunicipalityNumber(Long.parseLong(m.get(1)));
-				}
-				municipality.setName(m.get(2));
-				municipality.setProvinceName(m.get(3));
+						// Itero sulle provincie e le salvo su db
+						for (List<String> p : provinces) {
 
-				// Itero sulle provincie e le salvo su db
-				for (List<String> p : provinces) {
+							// Se è il primo record viene omesso il salvataggio
+							// su db
+							if (firstProvinceRecord) {
+								firstProvinceRecord = false;
+								continue;
+							}
 
-					// Se è il primo record viene omesso il salvataggio su db
-					if (firstProvinceRecord) {
-						firstProvinceRecord = false;
-						continue;
+							Province province = new Province();
+							province.setInitials(p.get(0));
+							province.setName(p.get(1));
+							province.setRegion(p.get(2));
+
+							provinceRepo.save(province);
+
+							// Cerco la corrispondenza tra comune e provincia,
+							// in molti casi il nome delle provincie nei due
+							// file non e
+							// scritto uguale
+
+							String provinceCSV = m.get(3);
+							String provinceDB = p.get(1);
+
+							JaccardSimilarity jaccardSimilarity = new JaccardSimilarity();
+							double similarity = jaccardSimilarity
+									.apply(provinceCSV, provinceDB);
+
+							if (similarity >= 0.8) {
+								municipality.setProvince(province);
+							}
+
+//							if (m.get(3).equals(p.get(1)) || m.get(3).split(" ")[0]
+//									.equals(p.get(1).split(" ")[0])) {
+							//
+//								municipality.setProvince(province);
+							//
+//							}
+
+						}
+
+						municipalityRepo.save(municipality);
 					}
 
-					Province province = new Province();
-					province.setInitials(p.get(0));
-					province.setName(p.get(1));
-					province.setRegion(p.get(2));
-
-					provinceRepo.save(province);
-
-					// Cerco la corrispondenza tra comune e provincia,
-					// in molti casi il nome delle provincie nei due file non e
-					// scritto uguale
-
-					String provinceCSV = m.get(3);
-					String provinceDB = p.get(1);
-
-					JaccardSimilarity jaccardSimilarity = new JaccardSimilarity();
-					double similarity = jaccardSimilarity.apply(provinceCSV,
-							provinceDB);
-
-					if (similarity >= 0.8) {
-						municipality.setProvince(province);
-					}
-
-//					if (m.get(3).equals(p.get(1)) || m.get(3).split(" ")[0]
-//							.equals(p.get(1).split(" ")[0])) {
-//
-//						municipality.setProvince(province);
-//
-//					}
-
 				}
+			} catch (Exception e) {
 
-				municipalityRepo.save(municipality);
+				e.printStackTrace();
 			}
+		});
 
-		}
+		addressThread.start(); // Fa partire il thread
 
-
-}
+	}
 
 	// Creo un metodo per riutlizzare il codice
 	private static List<List<String>> csvToArray(String filePath,
