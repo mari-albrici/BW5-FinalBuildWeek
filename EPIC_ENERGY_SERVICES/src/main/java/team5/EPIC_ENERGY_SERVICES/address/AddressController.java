@@ -30,6 +30,7 @@ public class AddressController {
 	// CRUD:
 	// 1. CREATE (POST METHOD) - http://localhost:3001/address
 	@PostMapping("")
+	@ResponseStatus(HttpStatus.CREATED)
 	public Address saveAddress(
 			@RequestBody @Validated CreateAddressPayload body) {
 		return addressService.save(body);
