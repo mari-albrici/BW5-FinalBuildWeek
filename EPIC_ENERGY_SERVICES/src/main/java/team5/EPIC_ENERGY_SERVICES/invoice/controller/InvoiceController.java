@@ -25,7 +25,7 @@ import team5.EPIC_ENERGY_SERVICES.invoice.service.InvoiceService;
 
 @RestController
 @RequestMapping("/invoice")
-@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+@PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
 public class InvoiceController {
 	
 	@Autowired
@@ -33,15 +33,15 @@ public class InvoiceController {
 	
 	@GetMapping("")
 	@ResponseStatus(HttpStatus.OK)
-	public Page<Invoice> InvoiceAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String sorted){
-		return invoiceService.find(page, size, sorted);
+	public Page<Invoice> InvoiceAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String sortedBy){
+		return invoiceService.find(page, size, sortedBy);
 	};
 	
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------
 	
 	@PostMapping("")
-	@PostAuthorize("hasRole('ADMIN')")
+	@PostAuthorize("hasAuthority('ADMIN')")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Invoice createInvoice(@RequestBody @Validated InvoicePayload inp) {
 		return invoiceService.create(inp);
@@ -49,25 +49,25 @@ public class InvoiceController {
 	
 	
 // ------------------------------------------------------------------------------------------------------------------------------------------------
-	
-	@GetMapping("/{:id}")
+
+	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public Invoice findInvoiceId(@RequestParam UUID id) throws Exception{
+	public Invoice findInvoiceById(@PathVariable UUID id) throws Exception{
 		return invoiceService.findById(id);
 	};
 	
 // ------------------------------------------------------------------------------------------------------------------------------------------------
 //	
-	@GetMapping("/{:invoiceNumber}")
-	@ResponseStatus(HttpStatus.OK)
-	public Invoice findInvoiceId(@RequestParam String invoiceNumber) throws Exception{
-		return invoiceService.findByInvoiceNumber(invoiceNumber);
-	};
+//	@GetMapping("/{:invoiceNumber}")
+//	@ResponseStatus(HttpStatus.OK)
+//	public Invoice findInvoiceId(@RequestParam String invoiceNumber) throws Exception{
+//		return invoiceService.findByInvoiceNumber(invoiceNumber);
+//	};
 	
 // ------------------------------------------------------------------------------------------------------------------------------------------------
 	
-	@PutMapping("/{:id}")
-	@PostAuthorize("hasRole('ADMIN')")
+	@PutMapping("/{id}")
+	@PostAuthorize("hasAuthority('ADMIN')")
 	@ResponseStatus(HttpStatus.OK)
 	public Invoice findAndUpdate(@PathVariable UUID id, @RequestBody Invoice invoice) throws Exception{
 		return invoiceService.findByIdAndUpdate(id, invoice);
@@ -76,8 +76,8 @@ public class InvoiceController {
 	
 // ------------------------------------------------------------------------------------------------------------------------------------------------
 	
-	@DeleteMapping("/{:id}")
-	@PostAuthorize("hasRole('ADMIN')")
+	@DeleteMapping("/{id}")
+	@PostAuthorize("hasAuthority('ADMIN')")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteInvoice(@PathVariable UUID id) throws Exception{
 		invoiceService.findByIdAndDelete(id);
