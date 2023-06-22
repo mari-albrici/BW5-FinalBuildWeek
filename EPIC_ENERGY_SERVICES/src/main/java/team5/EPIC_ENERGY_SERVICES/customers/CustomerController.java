@@ -36,24 +36,24 @@ public class CustomerController {
     }
 
     //********** GET SINGLE CUSTOMER **********
-    @GetMapping("/{customerId}")
-    public Customer getCustomer(@PathVariable UUID customerId) throws Exception {
-        return customerService.findById(customerId);
+    @GetMapping("/{id}")
+    public Customer getCustomer(@PathVariable UUID id) throws Exception {
+        return customerService.findById(id);
     }
 
     //********** PUT SINGLE CUSTOMER **********
-    @PutMapping("/{customerId}")
+    @PutMapping("/{id}")
     @PostAuthorize("hasAuthority('ADMIN')")
-    public Customer updateCustomer(@PathVariable UUID customerId, @RequestBody Customer body) throws Exception {
-        return customerService.findByIdAndUpdate(customerId, body);
+    public Customer updateCustomer(@PathVariable UUID id, @RequestBody Customer body) throws Exception {
+        return customerService.findByIdAndUpdate(id, body);
     }
 
     //********** DELETE SINGLE CUSTOMER **********
-    @DeleteMapping("/{customerId}")
+    @DeleteMapping("/{id}")
     @PostAuthorize("hasAuthority('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteUser(@PathVariable UUID customerId) throws Exception {
-        customerService.findByIdAndDelete(customerId);
+    public void deleteUser(@PathVariable UUID id) throws Exception {
+        customerService.findByIdAndDelete(id);
     }
 
 }
