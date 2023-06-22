@@ -28,17 +28,10 @@ public class UserController {
 	private UserService usersService;
 
 	@GetMapping("")
-	public Page<User> getUsers(@RequestParam(defaultValue = "0") int page,
-			@RequestParam(defaultValue = "10") int size,
+	public Page<User> getUsers(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,
 			@RequestParam(defaultValue = "id") String sortBy) {
 		return usersService.find(page, size, sortBy);
 	}
-
-//	@PostMapping("")
-//	@ResponseStatus(HttpStatus.CREATED)
-//	public User saveUser(@RequestBody @Validated UserRegistrationPayload body) {
-//		return usersService.create(body);
-//	}
 
 	@GetMapping("/{userId}")
 	public User getUser(@PathVariable UUID userId) throws Exception {
@@ -48,8 +41,7 @@ public class UserController {
 
 	@PutMapping("/{userId}")
 	@PostAuthorize("hasAuthority('ADMIN')")
-	public User updateUser(@PathVariable UUID userId,
-			@RequestBody UserRegistrationPayload body) throws Exception {
+	public User updateUser(@PathVariable UUID userId, @RequestBody UserRegistrationPayload body) throws Exception {
 		return usersService.findByIdAndUpdate(userId, body);
 	}
 

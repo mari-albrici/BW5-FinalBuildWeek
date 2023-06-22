@@ -35,7 +35,7 @@ public class Customer {
 
 	@Id
 	@GeneratedValue
-	private UUID customerId;
+	private UUID id;
 
 	private String businessName;
 	private String VATNumber;

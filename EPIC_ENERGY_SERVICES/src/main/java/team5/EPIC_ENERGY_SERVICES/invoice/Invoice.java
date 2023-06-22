@@ -27,7 +27,6 @@ public class Invoice {
 	@GeneratedValue
 	private UUID id;
 	
-	
 	private int year;
 	private LocalDate date;
 	private double amount;
@@ -50,4 +49,13 @@ public class Invoice {
 		this.type = type;
 		this.customer = customer;
 	}
+
+    public Invoice(int year, LocalDate date, double amount, String invoiceNumber, InvoiceType invoiceType) {
+		super();
+		this.year = year;
+		this.date = date;
+		this.amount = amount;
+		this.invoiceNumber = invoiceNumber;
+		this.type = invoiceType;
+    }
 }

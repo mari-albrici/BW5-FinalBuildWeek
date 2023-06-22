@@ -33,7 +33,8 @@ public class SecurityConfig {
 				.requestMatchers(HttpMethod.GET, "/users").authenticated());
 		http.authorizeHttpRequests(
 				auth -> auth.requestMatchers("/users/{id}").authenticated());
-
+		http.authorizeHttpRequests(auth -> auth
+				.requestMatchers(HttpMethod.GET,"/customers").authenticated());
 		http.authorizeHttpRequests(auth -> auth
 				.requestMatchers("/address/{addressId}").authenticated());
 		http.authorizeHttpRequests(
@@ -41,6 +42,11 @@ public class SecurityConfig {
 
 		http.authorizeHttpRequests(auth -> auth
 				.requestMatchers("/customers/{id}").authenticated());
+		http.authorizeHttpRequests(auth -> auth
+				.requestMatchers(HttpMethod.GET,"/invoice").authenticated());
+		http.authorizeHttpRequests(auth -> auth
+				.requestMatchers("/invoice/{id}").authenticated());
+
 
 		http.addFilterBefore(jwtAuthFilter,
 				UsernamePasswordAuthenticationFilter.class);

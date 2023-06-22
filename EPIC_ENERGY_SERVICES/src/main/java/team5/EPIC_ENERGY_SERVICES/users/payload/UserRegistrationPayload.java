@@ -7,27 +7,27 @@ import lombok.Data;
 
 @Data
 public class UserRegistrationPayload {
-	@NotNull(message = "Il nome è obbligatorio")
-	@Size(min = 3, max = 30, message = "Nome min 3 caratteri, massimo 30")
+	@NotNull(message = "Name is required")
+	@Size(min = 3, max = 30, message = "Name must be between 3 and 30 characters")
 	String name;
-	@NotNull(message = "Lo username è obbligatorio")
-	@Size(min = 3, max = 30, message = "Username min 3 caratteri, massimo 30")
+	@NotNull(message = "Username is required")
+	@Size(min = 3, max = 30, message = "Username must be between 3 and 30 characters")
 	String username;
-	@NotNull(message = "Il cognome è obbligatorio")
+	@NotNull(message = "Surname is required")
 	String surname;
-	@Email(message = "Non hai inserito un indirizzo email valido")
+	@Email(message = "Invalid email address")
 	String email;
-	@NotNull(message = "La password è obbligatoria")
+	@NotNull(message = "Password is required")
 	String password;
 //	@NotNull(message = "Il customer è obbligatorio")
 //	UUID customerId;
 
 	public UserRegistrationPayload(
-			@NotNull(message = "Lo username è obbligatorio") @Size(min = 3, max = 30, message = "Username min 3 caratteri, massimo 30") String username,
-			@NotNull(message = "Il nome è obbligatorio") @Size(min = 3, max = 30, message = "Nome min 3 caratteri, massimo 30") String name,
-			@NotNull(message = "Il cognome è obbligatorio") String surname,
-			@Email(message = "Non hai inserito un indirizzo email valido") String email,
-			@NotNull(message = "La password è obbligatoria") String password) {
+			@NotNull(message = "Username is required") @Size(min = 3, max = 30, message = "Username must be between 3 and 30 characters") String username,
+			@NotNull(message = "Name is required") @Size(min = 3, max = 30, message = "Name must be between 3 and 30 characters") String name,
+			@NotNull(message = "Surname is required") String surname,
+			@Email(message = "Invalid email address") String email,
+			@NotNull(message = "Password is required") String password) {
 		super();
 		this.name = name;
 		this.username = username;
