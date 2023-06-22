@@ -56,9 +56,10 @@ public class AddressController {
 	// body
 	@PutMapping("/{addressId}")
 	@PostAuthorize("hasAuthority('ADMIN')")
-	public Address updateAddress(@PathVariable UUID addressId,
-			@RequestBody Address body) throws Exception {
-		return addressService.findByIdAndUpdate(addressId, body);
+	public Address updateAddress(@PathVariable String addressId,
+			@RequestBody CreateAddressPayload body) throws Exception {
+		return addressService.findByIdAndUpdate(UUID.fromString(addressId),
+				body);
 	}
 
 	// 5. DELETE (DELETE METHOD) - http://localhost:3001/address/:addressId
