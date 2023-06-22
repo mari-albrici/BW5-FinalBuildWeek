@@ -4,6 +4,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import team5.EPIC_ENERGY_SERVICES.address.Address;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -41,4 +42,8 @@ public class CustomerRegistrationPayload {
     String contactPhone;
 
     BusinessType customerType;
+
+    Address legalAddress;
+
+    Address operationalAddress;
 }
