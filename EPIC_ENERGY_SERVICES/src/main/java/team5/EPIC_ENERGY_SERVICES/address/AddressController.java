@@ -5,6 +5,8 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/address")
+@PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
 public class AddressController {
 
 	@Autowired
@@ -51,6 +54,7 @@ public class AddressController {
 	// 4. UPDATE (PUT METHOD) - http://localhost:3001/address/:addressId + req.
 	// body
 	@PutMapping("/{addressId}")
+	@PostAuthorize("hasAuthority('ADMIN')")
 	public Address updateAddress(@PathVariable UUID addressId,
 			@RequestBody Address body) throws Exception {
 		return addressService.findByIdAndUpdate(addressId, body);
@@ -58,6 +62,7 @@ public class AddressController {
 
 	// 5. DELETE (DELETE METHOD) - http://localhost:3001/address/:addressId
 	@DeleteMapping("/{addressId}")
+	@PostAuthorize("hasAuthority('ADMIN')")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteUser(@PathVariable UUID addressId) {
 		addressService.findByIdAndDelete(addressId);

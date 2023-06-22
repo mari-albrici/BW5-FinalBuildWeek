@@ -35,6 +35,11 @@ public class SecurityConfig {
 				auth -> auth.requestMatchers("/users/{id}").authenticated());
 
 		http.authorizeHttpRequests(auth -> auth
+				.requestMatchers("/address/{addressId}").authenticated());
+		http.authorizeHttpRequests(
+				auth -> auth.requestMatchers("/address").authenticated());
+
+		http.authorizeHttpRequests(auth -> auth
 				.requestMatchers("/customers/{id}").authenticated());
 
 		http.addFilterBefore(jwtAuthFilter,
