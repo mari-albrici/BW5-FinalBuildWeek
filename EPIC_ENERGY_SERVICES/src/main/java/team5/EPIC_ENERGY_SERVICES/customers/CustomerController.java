@@ -32,7 +32,7 @@ public class CustomerController {
     @PostAuthorize("hasAuthority('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public Customer saveCustomer(@RequestBody @Validated CustomerRegistrationPayload body) {
-        return customerService.create(body);
+        return customerService.createPayload(body);
     }
 
     //********** GET SINGLE CUSTOMER **********
@@ -44,7 +44,7 @@ public class CustomerController {
     //********** PUT SINGLE CUSTOMER **********
     @PutMapping("/{id}")
     @PostAuthorize("hasAuthority('ADMIN')")
-    public Customer updateCustomer(@PathVariable UUID id, @RequestBody Customer body) throws Exception {
+    public Customer updateCustomer(@PathVariable UUID id, @RequestBody CustomerRegistrationPayload body) throws Exception {
         return customerService.findByIdAndUpdate(id, body);
     }
 

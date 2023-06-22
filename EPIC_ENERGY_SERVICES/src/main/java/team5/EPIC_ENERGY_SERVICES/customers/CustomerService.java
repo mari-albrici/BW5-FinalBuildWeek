@@ -18,7 +18,23 @@ public class CustomerService {
     @Autowired
     private CustomerRepository customerRepo;
 
-    public Customer create(Customer c) {
+    public Customer create(Customer c){
+        return customerRepo.save(c);
+    }
+
+    public Customer createPayload(CustomerRegistrationPayload body) {
+        Customer c = new Customer();
+        c.setBusinessName(body.getBusinessName());
+        c.setAdded(body.getAdded());
+        c.setCustomerType(body.getCustomerType());
+        c.setEmail(body.getEmail());
+        c.setAnnualTurnover(body.getAnnualTurnover());
+        c.setContactEmail(body.getContactEmail());
+        c.setContactLastname(body.getContactLastname());
+        c.setContactName(body.getContactName());
+        c.setContactPhone(body.getContactPhone());
+        c.setPec(body.getPec());
+        c.setPhoneNo(body.getPhoneNo());
         return customerRepo.save(c);
     }
 
@@ -36,7 +52,7 @@ public class CustomerService {
         return customerRepo.findById(id).orElseThrow(() -> new NotFoundException("User not found"));
     }
 
-    public Customer findByIdAndUpdate(UUID id, Customer c) throws NotFoundException {
+    public Customer findByIdAndUpdate(UUID id, CustomerRegistrationPayload c) throws NotFoundException {
         Customer found = this.findById(id);
 
         found.setBusinessName(c.getBusinessName());
@@ -58,4 +74,6 @@ public class CustomerService {
         Customer found = this.findById(id);
         customerRepo.delete(found);
     }
+
+
 }
