@@ -21,7 +21,6 @@ public class InvoiceService {
 	private InvoiceRepository invoiceRepository;
 	
 	public Invoice create(Invoice in) {
-
 		return invoiceRepository.save(in);
 	};
 	
@@ -40,7 +39,7 @@ public class InvoiceService {
 		if (size > 50) {
 			size = 50;
 		}
-		Pageable pageable = (Pageable) PageRequest.of(page, size, Sort.by(sortedBy));
+		Pageable pageable = PageRequest.of(page, size, Sort.by(sortedBy));
 		
 		return invoiceRepository.findAll(pageable);
 	}
@@ -68,7 +67,6 @@ public class InvoiceService {
 // -----------------------------------------------------------------------------
 	public void findByIdAndDelete(UUID id) throws NotFoundException{
 		Invoice i = this.findById(id);
-		
 		invoiceRepository.delete(i);
 	};
 }
