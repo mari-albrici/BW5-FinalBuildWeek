@@ -3,18 +3,16 @@ package team5.EPIC_ENERGY_SERVICES.invoice.payload;
 import java.time.LocalDate;
 
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import team5.EPIC_ENERGY_SERVICES.invoice.Invoice;
 import team5.EPIC_ENERGY_SERVICES.invoice.InvoiceType;
 
 @Getter
 @Setter
-public class InvoicePayload extends Invoice{
+public class InvoicePayload {
 
 	@NotNull(message = "enter a valid year")
-	@Size(min = 4 , max = 4)
+//	@Size(min = 0, max = 3000)
 	int year;
 
 // --------------------------------------
@@ -23,12 +21,12 @@ public class InvoicePayload extends Invoice{
 
 // --------------------------------------	
 	@NotNull(message = "enter a valid amount")
-	@Size(min = 3)
+//	@Size(min = 3)
 	double amount;
 
 // ---------------------------------------	
 	@NotNull(message = "enter a valid invoice Number")
-	@Size(min = 10, max = 18)
+//	@Size(min = 10, max = 18)
 	String invoiceNumber;
 
 // ----------------------------------------
@@ -38,4 +36,3 @@ public class InvoicePayload extends Invoice{
 // ----------------------------------------
 
 }
-	
