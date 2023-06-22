@@ -2,6 +2,8 @@ package team5.EPIC_ENERGY_SERVICES.province;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -23,5 +25,6 @@ public class Province {
 	private String region;
 
 	@OneToMany(mappedBy = "province")
+	@JsonManagedReference
 	private List<Municipality> municipalities;
 }
