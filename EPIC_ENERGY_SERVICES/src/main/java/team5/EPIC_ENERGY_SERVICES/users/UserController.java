@@ -22,13 +22,14 @@ import team5.EPIC_ENERGY_SERVICES.users.payload.UserRegistrationPayload;
 
 @RestController
 @RequestMapping("/users")
-@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+@PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
 public class UserController {
 	@Autowired
 	private UserService usersService;
 
 	@GetMapping("")
-	public Page<User> getUsers(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,
+	public Page<User> getUsers(@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size,
 			@RequestParam(defaultValue = "id") String sortBy) {
 		return usersService.find(page, size, sortBy);
 	}
@@ -41,17 +42,19 @@ public class UserController {
 
 	@GetMapping("/{userId}")
 	public User getUser(@PathVariable UUID userId) throws Exception {
+
 		return usersService.findById(userId);
 	}
 
 	@PutMapping("/{userId}")
-	@PostAuthorize("hasRole('ADMIN')")
-	public User updateUser(@PathVariable UUID userId, @RequestBody UserRegistrationPayload body) throws Exception {
+	@PostAuthorize("hasAuthority('ADMIN')")
+	public User updateUser(@PathVariable UUID userId,
+			@RequestBody UserRegistrationPayload body) throws Exception {
 		return usersService.findByIdAndUpdate(userId, body);
 	}
 
 	@DeleteMapping("/{userId}")
-	@PostAuthorize("hasRole('ADMIN')")
+	@PostAuthorize("hasAuthority('ADMIN')")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteUser(@PathVariable UUID userId) throws NotFoundException {
 		usersService.findByIdAndDelete(userId);
