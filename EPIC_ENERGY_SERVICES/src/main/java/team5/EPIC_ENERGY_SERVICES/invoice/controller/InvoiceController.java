@@ -43,8 +43,8 @@ public class InvoiceController {
 	@PostMapping("")
 	@PostAuthorize("hasAuthority('ADMIN')")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Invoice createInvoice(@RequestBody @Validated InvoicePayload inp) {
-		return invoiceService.create(inp);
+	public Invoice createInvoice(@RequestBody @Validated InvoicePayload invoicePayload) {
+		return invoiceService.create(invoicePayload);
 	};
 	
 	
@@ -69,8 +69,8 @@ public class InvoiceController {
 	@PutMapping("/{id}")
 	@PostAuthorize("hasAuthority('ADMIN')")
 	@ResponseStatus(HttpStatus.OK)
-	public Invoice findAndUpdate(@PathVariable UUID id, @RequestBody Invoice invoice) throws Exception{
-		return invoiceService.findByIdAndUpdate(id, invoice);
+	public Invoice findAndUpdate(@PathVariable UUID id, @RequestBody InvoicePayload invoicePayload) throws Exception{
+		return invoiceService.findByIdAndUpdate(id, invoicePayload);
 	};
 	
 	

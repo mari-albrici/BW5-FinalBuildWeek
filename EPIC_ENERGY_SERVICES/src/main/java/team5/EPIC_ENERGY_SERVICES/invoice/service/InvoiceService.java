@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import team5.EPIC_ENERGY_SERVICES.exceptions.NotFoundException;
 import team5.EPIC_ENERGY_SERVICES.invoice.Invoice;
+import team5.EPIC_ENERGY_SERVICES.invoice.payload.InvoicePayload;
 import team5.EPIC_ENERGY_SERVICES.invoice.repositories.InvoiceRepository;
 
 @Service
