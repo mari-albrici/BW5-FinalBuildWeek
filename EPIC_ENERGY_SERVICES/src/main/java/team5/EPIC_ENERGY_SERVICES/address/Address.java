@@ -2,6 +2,8 @@ package team5.EPIC_ENERGY_SERVICES.address;
 
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -29,6 +31,7 @@ public class Address {
 
 	@ManyToOne
 	@JoinColumn(name = "municipality_id")
+	@JsonManagedReference
 	Municipality municipality;
 
 	@OneToOne(mappedBy = "legalAddress")

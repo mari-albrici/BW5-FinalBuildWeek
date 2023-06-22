@@ -3,6 +3,8 @@ package team5.EPIC_ENERGY_SERVICES.municipality;
 import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -28,8 +30,10 @@ public class Municipality {
 
 	@ManyToOne
 	@JoinColumn(name = "province_initial")
+	@JsonBackReference
 	private Province province;
 
 	@OneToMany(mappedBy = "municipality")
+	@JsonBackReference
 	List<Address> addresses;
 }
