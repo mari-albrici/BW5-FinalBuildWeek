@@ -58,7 +58,7 @@ public class CustomerRunner implements CommandLineRunner {
 //								"Address not found")));
 				customer.setVATNumber(String.valueOf(
 						faker.number().numberBetween(111111111, 999999999)));
-				customerService.create(customer);
+//				customerService.create(customer);
 			} catch (Exception e) {
 				System.out.println(e);
 			}
