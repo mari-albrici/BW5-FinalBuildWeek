@@ -34,15 +34,17 @@ public class InvoiceService {
 		newInvoice.setAmount(in.getAmount());
 		newInvoice.setInvoiceNumber(in.getInvoiceNumber());
 		newInvoice.setType(in.getType());
-		newInvoice.setCustomerId(customerRepository.findById(in.getCustomerId())
-				.orElseThrow(() -> new NotFoundException("customer not found")));
+		newInvoice.setCustomerId(
+				customerRepository.findById(in.getCustomerId()).orElseThrow(
+						() -> new NotFoundException("customer not found")));
 
 		return invoiceRepository.save(newInvoice);
 	};
 
 // ---------------------------------------------------------------------------
 	public Invoice findById(UUID id) throws NotFoundException {
-		return invoiceRepository.findById(id).orElseThrow(() -> new NotFoundException("invoice not found"));
+		return invoiceRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("invoice not found"));
 	};
 
 // -----------------------------------------------------------------------------
@@ -59,13 +61,15 @@ public class InvoiceService {
 	}
 
 // ---------------------------------------------------------------------------
-	public Invoice findByInvoiceNumber(String invoiceNumber) throws NotFoundException {
-		return invoiceRepository.findByInvoiceNumber(invoiceNumber)
-				.orElseThrow(() -> new NotFoundException("Invoice number not found"));
+	public Invoice findByInvoiceNumber(String invoiceNumber)
+			throws NotFoundException {
+		return invoiceRepository.findByInvoiceNumber(invoiceNumber).orElseThrow(
+				() -> new NotFoundException("Invoice number not found"));
 	};
 
 // ---------------------------------------------------------------------------
-	public Invoice findByIdAndUpdate(UUID id, InvoicePayload invoicePayload) throws NotFoundException {
+	public Invoice findByIdAndUpdate(UUID id, InvoicePayload invoicePayload)
+			throws NotFoundException {
 		Invoice i = this.findById(id);
 
 		i.setYear(invoicePayload.getYear());
@@ -73,7 +77,9 @@ public class InvoiceService {
 		i.setAmount(invoicePayload.getAmount());
 		i.setInvoiceNumber(invoicePayload.getInvoiceNumber());
 		i.setType(invoicePayload.getType());
-		// i.setCustomerId(in.getCustomerId());
+		i.setCustomerId(customerRepository
+				.findById(invoicePayload.getCustomerId())
+				.orElseThrow(() -> new NotFoundException("User not found")));
 
 		return invoiceRepository.save(i);
 	};

@@ -35,7 +35,8 @@ public class Invoice {
 	@JoinColumn(name = "customer_id")
 	private Customer customerId;
 
-	public Invoice(int year, LocalDate date, double amount, String invoiceNumber, InvoiceType type, Customer customerId) {
+	public Invoice(int year, LocalDate date, double amount,
+			String invoiceNumber, InvoiceType type, Customer customerId) {
 		super();
 		this.year = year;
 		this.date = date;

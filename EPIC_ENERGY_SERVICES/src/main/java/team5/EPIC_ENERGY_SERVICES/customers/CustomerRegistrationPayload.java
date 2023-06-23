@@ -27,7 +27,7 @@ public class CustomerRegistrationPayload {
 	@Email(message = "Email address is invalid")
 	String contactEmail;
 
-	String VATNumber;
+	String vatnumber;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	LocalDate added;
