@@ -52,18 +52,20 @@ public class AddressService {
 	public Address getAddressById(UUID id) {
 
 		return addressRepo.findById(id).orElseThrow(
-				() -> new NotFoundException("User not found for id: " + id));
+				() -> new NotFoundException("Address not found for id: " + id));
 
 	}
 
-	public Address findByIdAndUpdate(UUID userId, Address address)
+	public Address findByIdAndUpdate(UUID userId, CreateAddressPayload address)
 			throws NotFoundException {
 		Address found = this.getAddressById(userId);
+		Optional<Municipality> municipalityFound = municipalityRepo
+				.findById(UUID.fromString(address.getMunicipalityId()));
 
 		found.setId(userId);
 		found.setBuildingNumber(address.getBuildingNumber());
 		found.setCity(address.getCity());
-		found.setMunicipality(address.getMunicipality());
+		found.setMunicipality(municipalityFound.orElse(null));
 		found.setStreet(address.getStreet());
 		found.setZipCode(address.getZipCode());
 
