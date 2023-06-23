@@ -1,6 +1,7 @@
 package team5.EPIC_ENERGY_SERVICES.invoice.payload;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -34,5 +35,6 @@ public class InvoicePayload {
 	InvoiceType type;
 
 // ----------------------------------------
+	UUID customerId;
 
 }

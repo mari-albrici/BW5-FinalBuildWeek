@@ -23,19 +23,19 @@ public class InvoiceService {
 	public Invoice create(InvoicePayload in) {
 
 		Invoice newInvoice = new Invoice();
-		newInvoice.setAmount(in.getAmount());
+		newInvoice.setYear(in.getYear());
 		newInvoice.setDate(in.getDate());
+		newInvoice.setAmount(in.getAmount());
 		newInvoice.setInvoiceNumber(in.getInvoiceNumber());
 		newInvoice.setType(in.getType());
-		newInvoice.setYear(in.getYear());
+		// newInvoice.setCustomerId(in.getCustomerId());
 
 		return invoiceRepository.save(newInvoice);
 	};
 
 // ---------------------------------------------------------------------------
 	public Invoice findById(UUID id) throws NotFoundException {
-		return invoiceRepository.findById(id)
-				.orElseThrow(() -> new NotFoundException("invoice not found"));
+		return invoiceRepository.findById(id).orElseThrow(() -> new NotFoundException("invoice not found"));
 	};
 
 // -----------------------------------------------------------------------------
@@ -52,15 +52,13 @@ public class InvoiceService {
 	}
 
 // ---------------------------------------------------------------------------
-	public Invoice findByInvoiceNumber(String invoiceNumber)
-			throws NotFoundException {
-		return invoiceRepository.findByInvoiceNumber(invoiceNumber).orElseThrow(
-				() -> new NotFoundException("Invoice number not found"));
+	public Invoice findByInvoiceNumber(String invoiceNumber) throws NotFoundException {
+		return invoiceRepository.findByInvoiceNumber(invoiceNumber)
+				.orElseThrow(() -> new NotFoundException("Invoice number not found"));
 	};
 
 // ---------------------------------------------------------------------------
-	public Invoice findByIdAndUpdate(UUID id, Invoice invoice)
-			throws NotFoundException {
+	public Invoice findByIdAndUpdate(UUID id, Invoice invoice) throws NotFoundException {
 		Invoice i = this.findById(id);
 
 		i.setYear(invoice.getYear());
@@ -68,6 +66,7 @@ public class InvoiceService {
 		i.setAmount(invoice.getAmount());
 		i.setInvoiceNumber(invoice.getInvoiceNumber());
 		i.setType(invoice.getType());
+		// i.setCustomerId(in.getCustomerId());
 
 		return invoiceRepository.save(i);
 	};

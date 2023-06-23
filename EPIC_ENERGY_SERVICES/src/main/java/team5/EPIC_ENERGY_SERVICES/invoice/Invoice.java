@@ -14,7 +14,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import team5.EPIC_ENERGY_SERVICES.customers.Customer;
 
 @Entity
 @Table(name = "invoice")
@@ -22,40 +21,35 @@ import team5.EPIC_ENERGY_SERVICES.customers.Customer;
 @NoArgsConstructor
 public class Invoice {
 
-
 	@Id
 	@GeneratedValue
 	private UUID id;
-	
 	private int year;
 	private LocalDate date;
 	private double amount;
 	private String invoiceNumber;
-	
 	@Enumerated(EnumType.STRING)
 	private InvoiceType type;
-	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="customer_id")
-	private Customer customer;
-	
-	
-	public Invoice(int year, LocalDate date, double amount, String invoiceNumber, InvoiceType type, Customer customer) {
+	@JoinColumn(name = "customer_id")
+	private UUID customerId;
+
+	public Invoice(int year, LocalDate date, double amount, String invoiceNumber, InvoiceType type, UUID customerId) {
 		super();
 		this.year = year;
 		this.date = date;
 		this.amount = amount;
 		this.invoiceNumber = invoiceNumber;
 		this.type = type;
-		this.customer = customer;
+		this.customerId = customerId;
 	}
 
-    public Invoice(int year, LocalDate date, double amount, String invoiceNumber, InvoiceType invoiceType) {
+	public Invoice(int year, LocalDate date, double amount, String invoiceNumber, InvoiceType invoiceType) {
 		super();
 		this.year = year;
 		this.date = date;
 		this.amount = amount;
 		this.invoiceNumber = invoiceNumber;
 		this.type = invoiceType;
-    }
+	}
 }
