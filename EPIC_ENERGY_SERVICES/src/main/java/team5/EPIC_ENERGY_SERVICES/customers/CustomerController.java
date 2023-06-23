@@ -2,6 +2,7 @@ package team5.EPIC_ENERGY_SERVICES.customers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PostAuthorize;
@@ -32,9 +33,24 @@ public class CustomerController {
 
 	// ********** GET ALL CUSTOMERS **********
 	@GetMapping("")
-	public Page<Customer> getCustomer(@RequestParam(defaultValue = "0") int page,
-			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String sortBy) {
-		return customerService.find(page, size, sortBy);
+	public Page<Customer> getCustomers(
+			@RequestParam(name = "page", defaultValue = "0") int page,
+			@RequestParam(name = "size", defaultValue = "10") int size,
+			@RequestParam(defaultValue = "id") String sortBy,
+			@RequestBody(required = false) SortRequest sortRequest) {
+
+		Sort sort = null;
+
+		if(sortRequest != null){
+			sort = Sort.by(sortRequest.getSortBy());
+			if (sortRequest.isDescending()) {
+				sort = sort.descending();
+			}
+		} else {
+			sort = Sort.by(sortBy);
+		}
+
+		return customerService.find(page, size, String.valueOf(sort));
 	}
 
 	// ********** POST NEW CUSTOMER **********
