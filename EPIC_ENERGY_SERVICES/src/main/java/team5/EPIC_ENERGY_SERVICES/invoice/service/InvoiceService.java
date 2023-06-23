@@ -1,7 +1,5 @@
 package team5.EPIC_ENERGY_SERVICES.invoice.service;
 
-import java.time.LocalDate;
-
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,18 +8,23 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
 import lombok.extern.java.Log;
+import team5.EPIC_ENERGY_SERVICES.customers.CustomerRepository;
 import team5.EPIC_ENERGY_SERVICES.exceptions.NotFoundException;
 import team5.EPIC_ENERGY_SERVICES.invoice.Invoice;
-import team5.EPIC_ENERGY_SERVICES.invoice.InvoiceType;
 import team5.EPIC_ENERGY_SERVICES.invoice.payload.InvoicePayload;
 import team5.EPIC_ENERGY_SERVICES.invoice.repositories.InvoiceRepository;
+
 @Log
 @Service
 public class InvoiceService {
 
 	@Autowired
 	private InvoiceRepository invoiceRepository;
+
+	@Autowired
+	private CustomerRepository customerRepository;
 
 	public Invoice create(InvoicePayload in) {
 
@@ -31,7 +34,8 @@ public class InvoiceService {
 		newInvoice.setAmount(in.getAmount());
 		newInvoice.setInvoiceNumber(in.getInvoiceNumber());
 		newInvoice.setType(in.getType());
-		// newInvoice.setCustomerId(in.getCustomerId());
+		newInvoice.setCustomerId(customerRepository.findById(in.getCustomerId())
+				.orElseThrow(() -> new NotFoundException("customer not found")));
 
 		return invoiceRepository.save(newInvoice);
 	};
@@ -73,6 +77,7 @@ public class InvoiceService {
 
 		return invoiceRepository.save(i);
 	};
+
 // -----------------------------------------------------------------------------
 //	
 //	public Page<Invoice> findByType(InvoiceType invoiceType, int page, int size, String sorted){

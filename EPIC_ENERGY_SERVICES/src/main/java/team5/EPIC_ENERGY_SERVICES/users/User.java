@@ -16,6 +16,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import team5.EPIC_ENERGY_SERVICES.customers.Customer;
@@ -24,6 +25,7 @@ import team5.EPIC_ENERGY_SERVICES.customers.Customer;
 @Table(name = "users")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class User implements UserDetails {
 
 	@Id
@@ -47,6 +49,16 @@ public class User implements UserDetails {
 		this.email = email;
 		this.password = password;
 		this.customer = null;
+		this.role = Role.USER;
+	}
+
+	public User(String username, String name, String surname, String email, String password, Customer customerId) {
+		this.username = username;
+		this.name = name;
+		this.surname = surname;
+		this.email = email;
+		this.password = password;
+		this.customer = customerId;
 		this.role = Role.USER;
 	}
 

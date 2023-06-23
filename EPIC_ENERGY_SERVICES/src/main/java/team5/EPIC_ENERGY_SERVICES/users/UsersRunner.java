@@ -1,6 +1,7 @@
 package team5.EPIC_ENERGY_SERVICES.users;
 
 import java.util.Locale;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -25,11 +26,11 @@ public class UsersRunner implements CommandLineRunner {
 				String surname = faker.name().lastName();
 				String email = faker.internet().emailAddress();
 				String password = "1234";
-//				UUID customerId = UUID.fromString("216c6570-474c-4d1b-ba01-938a207f8d2c");
+				UUID customerId = UUID.fromString("216c6570-474c-4d1b-ba01-938a207f8d2c");
 
-				UserRegistrationPayload user = new UserRegistrationPayload(
-						username, name, surname, email, password);
-				usersService.create(user);
+				UserRegistrationPayload user = new UserRegistrationPayload(username, name, surname, email, password,
+						customerId);
+//				usersService.create(user);
 			} catch (Exception e) {
 				System.out.println(e);
 			}

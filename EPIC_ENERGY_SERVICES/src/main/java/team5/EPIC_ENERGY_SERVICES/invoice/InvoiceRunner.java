@@ -1,6 +1,7 @@
 package team5.EPIC_ENERGY_SERVICES.invoice;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -22,9 +23,11 @@ public class InvoiceRunner implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		InvoicePayload i1 = new InvoicePayload(1976, LocalDate.of(1976, 6, 19), 456.78, "9876543210", InvoiceType.PAID);
-		
-		InvoicePayload i2 = new InvoicePayload(2023, LocalDate.of(2023, 6, 19), 789.01, "2468135790", InvoiceType.ISSUED);
+		InvoicePayload i1 = new InvoicePayload(1976, LocalDate.of(1976, 6, 19), 456.78, "9876543210", InvoiceType.PAID,
+				UUID.fromString("216c6570-474c-4d1b-ba01-938a207f8d2c"));
+
+		InvoicePayload i2 = new InvoicePayload(2023, LocalDate.of(2023, 6, 19), 789.01, "2468135790",
+				InvoiceType.ISSUED, UUID.fromString("216c6570-474c-4d1b-ba01-938a207f8d2c"));
 //
 //		InvoicePayload i3 = new InvoicePayload(2022, LocalDate.of(2022, 6, 19), 234.56, "1357924680", InvoiceType.TO_PAY);
 //
@@ -82,8 +85,8 @@ public class InvoiceRunner implements CommandLineRunner {
 //		
 //		InvoicePayload i30 = new InvoicePayload(1970, LocalDate.of(1970, 6, 19), 456.78, "1357924680", InvoiceType.PAID);
 //		
-		inService.create(i1);
-		inService.create(i2);
+//		inService.create(i1);
+//		inService.create(i2);
 //		inService.create(i3);
 //		inService.create(i4);
 //		inService.create(i5);

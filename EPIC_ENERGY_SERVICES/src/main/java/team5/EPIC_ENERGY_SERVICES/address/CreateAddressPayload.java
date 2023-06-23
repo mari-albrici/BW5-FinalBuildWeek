@@ -1,5 +1,7 @@
 package team5.EPIC_ENERGY_SERVICES.address;
 
+import java.util.UUID;
+
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -21,5 +23,5 @@ public class CreateAddressPayload {
 	String zipCode;
 
 	@NotNull(message = "Municipality Id is required")
-	String municipalityId;
+	UUID municipalityId;
 }
