@@ -1,10 +1,10 @@
 package team5.EPIC_ENERGY_SERVICES.customers;
 
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -19,6 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/customers")
 @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
@@ -29,9 +33,12 @@ public class CustomerController {
 
 	// ********** GET ALL CUSTOMERS **********
 	@GetMapping("")
-	public Page<Customer> getCustomer(@RequestParam(defaultValue = "0") int page,
-			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String sortBy) {
-		return customerService.find(page, size, sortBy);
+	public Page<Customer> getCustomers(
+			@RequestParam(name = "page", defaultValue = "0") int page,
+			@RequestParam(name = "size", defaultValue = "10") int size,
+			@RequestParam(defaultValue = "id") String sortBy) {
+		
+		return customerService.find(page, size, String.valueOf(sortBy));
 	}
 
 	// ********** POST NEW CUSTOMER **********
@@ -63,5 +70,34 @@ public class CustomerController {
 	public void deleteUser(@PathVariable UUID id) throws Exception {
 		customerService.findByIdAndDelete(id);
 	}
+
+
+    //********** EXTRA FILTER ENDPOINTS **********
+
+    @GetMapping("/findby/turnover-{annualTurnover}")
+    public ResponseEntity<Page<Customer>> getCustomerByTurnover(@PathVariable BigDecimal annualTurnover) {
+        Page<Customer> customers = customerService.findCustomerByAnnualTurnover(annualTurnover, 0, 20, "id");
+        return ResponseEntity.ok(customers);
+    }
+
+    @GetMapping("/findby/added-{added}")
+    public ResponseEntity<Page<Customer>> getCustomersByAdded(@PathVariable LocalDate added)  {
+
+        Page<Customer> customers = customerService.findCustomerByAdded(added, 0, 20, "id");
+        return ResponseEntity.ok(customers);
+    }
+
+    @GetMapping("/findby/lastcontact-{lastContact}")
+    public ResponseEntity<Page<Customer>> getCustomersByLastContact(@PathVariable LocalDate lastContact) {
+
+        Page<Customer> customers = customerService.findCustomerByLastContact(lastContact, 0, 20, "id");
+        return ResponseEntity.ok(customers);
+    }
+
+    @GetMapping("/findby/name-{businessName}")
+    public ResponseEntity<Page<Customer>> findCustomersByBusinessName(@PathVariable String businessName) {
+        Page<Customer> customers = customerService.findCustomerByBusinessName(businessName, 0, 20, "id");
+        return ResponseEntity.ok(customers);
+    }
 
 }
