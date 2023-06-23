@@ -3,12 +3,16 @@ package team5.EPIC_ENERGY_SERVICES.customers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import team5.EPIC_ENERGY_SERVICES.users.User;
 
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @RestController
@@ -54,6 +58,39 @@ public class CustomerController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUser(@PathVariable UUID id) throws Exception {
         customerService.findByIdAndDelete(id);
+    }
+
+
+    //********** EXTRA FILTER ENDPOINTS **********
+
+    @GetMapping("/{annualTurnover}")
+    public ResponseEntity<Page<Customer>> getCustomerByTurnover(@PathVariable BigDecimal annualTurnover) {
+        Page<Customer> customers = customerService.findCustomerByAnnualTurnover(annualTurnover, 0, 20, "customerId");
+        return ResponseEntity.ok(customers);
+    }
+
+    @GetMapping("/{added}")
+    public ResponseEntity<Page<Customer>> getCustomersByAdded(@PathVariable String added)  {
+
+        LocalDate dateAdded = LocalDate.parse(added);
+
+        Page<Customer> customers = customerService.findCustomerByAdded(dateAdded, 0, 20, "customerId");
+        return ResponseEntity.ok(customers);
+    }
+
+    @GetMapping("/{lastContact}")
+    public ResponseEntity<Page<Customer>> getCustomersByLastContact(@PathVariable String lastContact) {
+
+        LocalDate lastContacted = LocalDate.parse(lastContact);
+
+        Page<Customer> customers = customerService.findCustomerByLastContact(lastContacted, 0, 20, "customerId");
+        return ResponseEntity.ok(customers);
+    }
+
+    @GetMapping("/{businessName}")
+    public ResponseEntity<Page<Customer>> findCustomersByBusinessName(@PathVariable String businessName) {
+        Page<Customer> customers = customerService.findCustomerByBusinessName(businessName, 0, 20, "customerId");
+        return ResponseEntity.ok(customers);
     }
 
 }

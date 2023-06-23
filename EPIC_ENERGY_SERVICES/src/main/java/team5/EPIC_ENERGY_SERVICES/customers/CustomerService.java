@@ -9,7 +9,10 @@ import org.springframework.stereotype.Service;
 
 import team5.EPIC_ENERGY_SERVICES.exceptions.NotFoundException;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -73,6 +76,43 @@ public class CustomerService {
     public void findByIdAndDelete(UUID id) throws NotFoundException {
         Customer found = this.findById(id);
         customerRepo.delete(found);
+    }
+
+// -------------- EXTRA FILTERS -----------------
+    public Page<Customer> findCustomerByAnnualTurnover(BigDecimal annualTurnover, int page, int size, String sortBy) {
+        if (!Objects.equals(annualTurnover, BigDecimal.ZERO)) {
+            Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+            return customerRepo.findCustomerByAnnualTurnover(annualTurnover, pageable);
+        } else {
+            return Page.empty();
+        }
+    }
+
+    public Page<Customer> findCustomerByAdded(LocalDate added, int page, int size, String sortBy) {
+        if (added != null) {
+            Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+            return customerRepo.findCustomerByAdded(added, pageable);
+        } else {
+            return Page.empty();
+        }
+    }
+
+    public Page<Customer> findCustomerByLastContact(LocalDate lastContact, int page, int size, String sortBy) {
+        if (lastContact != null) {
+            Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+            return customerRepo.findCustomerByLastContact(lastContact, pageable);
+        } else {
+            return Page.empty();
+        }
+    }
+
+    public Page<Customer> findCustomerByBusinessName(String businessName, int page, int size, String sortBy) {
+        if (businessName != null) {
+            Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+            return customerRepo.findCustomerByBusinessName(businessName, pageable);
+        } else {
+            return Page.empty();
+        }
     }
 
 
