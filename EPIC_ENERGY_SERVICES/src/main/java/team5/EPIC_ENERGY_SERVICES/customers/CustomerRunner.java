@@ -36,9 +36,9 @@ public class CustomerRunner implements CommandLineRunner {
 
 		for (int i = 0; i < 10; i++)
 			try {
-				Customer customer = new Customer();
+				CustomerRegistrationPayload customer = new CustomerRegistrationPayload();
 				customer.setBusinessName(faker.funnyName().name());
-				customer.setAdded(LocalDate.of(2023, 01, 01));
+				customer.setAdded(LocalDate.of(2023, 1, 1));
 				customer.setLastContact(customer.getAdded().plusDays(42));
 				customer.setCustomerType(BusinessType.SAS);
 				customer.setEmail(faker.internet().emailAddress());
@@ -58,7 +58,7 @@ public class CustomerRunner implements CommandLineRunner {
 //								"Address not found")));
 				customer.setVATNumber(String.valueOf(
 						faker.number().numberBetween(111111111, 999999999)));
-//				customerService.create(customer);
+			//	customerService.create(customer);
 			} catch (Exception e) {
 				System.out.println(e);
 			}
