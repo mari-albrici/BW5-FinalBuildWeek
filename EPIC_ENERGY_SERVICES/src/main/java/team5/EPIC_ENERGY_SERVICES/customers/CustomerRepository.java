@@ -15,12 +15,16 @@ import java.util.UUID;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, UUID> {
     Optional<Customer> findByEmail(String email);
+
+    @Query(value = "SELECT * FROM customers WHERE annual_turnover >= :annualTurnover", nativeQuery = true)
     Page<Customer> findCustomerByAnnualTurnover(BigDecimal annualTurnover, Pageable pageable);
 
+    @Query(value = "SELECT * FROM customers WHERE added_name ILIKE %:added%", nativeQuery = true)
     Page<Customer> findCustomerByAdded(LocalDate added, Pageable pageable);
 
+    @Query(value = "SELECT * FROM customers WHERE last_contact ILIKE %:lastContact%", nativeQuery = true)
     Page<Customer> findCustomerByLastContact(LocalDate lastContact, Pageable pageable);
 
-    @Query("SELECT c FROM Customer c WHERE c.businessName LIKE %:businessName%")
+    @Query(value = "SELECT * FROM customers WHERE business_name ILIKE %:businessName%", nativeQuery = true)
     Page<Customer> findCustomerByBusinessName(@Param("businessName") String businessName, Pageable pageable);
 }

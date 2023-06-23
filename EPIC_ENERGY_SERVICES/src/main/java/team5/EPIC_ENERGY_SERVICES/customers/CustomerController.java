@@ -70,33 +70,29 @@ public class CustomerController {
 
     //********** EXTRA FILTER ENDPOINTS **********
 
-    @GetMapping("/findby/{annualTurnover}")
+    @GetMapping("/findby/turnover-{annualTurnover}")
     public ResponseEntity<Page<Customer>> getCustomerByTurnover(@PathVariable BigDecimal annualTurnover) {
-        Page<Customer> customers = customerService.findCustomerByAnnualTurnover(annualTurnover, 0, 20, "customerId");
+        Page<Customer> customers = customerService.findCustomerByAnnualTurnover(annualTurnover, 0, 20, "id");
         return ResponseEntity.ok(customers);
     }
 
-    @GetMapping("/findby/{added}")
-    public ResponseEntity<Page<Customer>> getCustomersByAdded(@PathVariable String added)  {
+    @GetMapping("/findby/added-{added}")
+    public ResponseEntity<Page<Customer>> getCustomersByAdded(@PathVariable LocalDate added)  {
 
-        LocalDate dateAdded = LocalDate.parse(added);
-
-        Page<Customer> customers = customerService.findCustomerByAdded(dateAdded, 0, 20, "customerId");
+        Page<Customer> customers = customerService.findCustomerByAdded(added, 0, 20, "id");
         return ResponseEntity.ok(customers);
     }
 
-    @GetMapping("/findby/{lastContact}")
-    public ResponseEntity<Page<Customer>> getCustomersByLastContact(@PathVariable String lastContact) {
+    @GetMapping("/findby/lastcontact-{lastContact}")
+    public ResponseEntity<Page<Customer>> getCustomersByLastContact(@PathVariable LocalDate lastContact) {
 
-        LocalDate lastContacted = LocalDate.parse(lastContact);
-
-        Page<Customer> customers = customerService.findCustomerByLastContact(lastContacted, 0, 20, "customerId");
+        Page<Customer> customers = customerService.findCustomerByLastContact(lastContact, 0, 20, "id");
         return ResponseEntity.ok(customers);
     }
 
-    @GetMapping("/findby/{businessName}")
+    @GetMapping("/findby/name-{businessName}")
     public ResponseEntity<Page<Customer>> findCustomersByBusinessName(@PathVariable String businessName) {
-        Page<Customer> customers = customerService.findCustomerByBusinessName(businessName, 0, 20, "customerId");
+        Page<Customer> customers = customerService.findCustomerByBusinessName(businessName, 0, 20, "id");
         return ResponseEntity.ok(customers);
     }
 

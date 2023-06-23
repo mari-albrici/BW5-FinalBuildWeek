@@ -22,21 +22,22 @@ public class CustomerService {
 
 	public Customer create(CustomerRegistrationPayload body) {
 		Customer c = new Customer();
-		c.setBusinessName(c.getBusinessName());
-		c.setEmail(c.getEmail());
-		c.setContactName(c.getContactName());
-		c.setContactLastname(c.getContactLastname());
-		c.setContactEmail(c.getContactEmail());
-		// VATNumber
-		c.setAdded(c.getAdded());
-		// lastContact
-		c.setAnnualTurnover(c.getAnnualTurnover());
-		c.setPec(c.getPec());
-		c.setPhoneNo(c.getPhoneNo());
-		c.setContactPhone(c.getContactPhone());
-		c.setCustomerType(c.getCustomerType());
-		// UUID legalAddress
-		// UUID operationalAddress
+		c.setBusinessName(body.getBusinessName());
+		c.setEmail(body.getEmail());
+		c.setContactName(body.getContactName());
+		c.setContactLastname(body.getContactLastname());
+		c.setContactEmail(body.getContactEmail());
+		c.setVATNumber(body.getVATNumber());
+		c.setAdded(body.getAdded());
+		c.setLastContact(body.getLastContact());
+		c.setAnnualTurnover(body.getAnnualTurnover());
+		c.setPec(body.getPec());
+		c.setPhoneNo(body.getPhoneNo());
+		c.setContactPhone(body.getContactPhone());
+		c.setCustomerType(body.getCustomerType());
+//		c.setLegalAddress(body.getLegalAddress());
+//		c.setOperationalAddress(body.getOperationalAddress());
+
 		return customerRepo.save(c);
 	}
 

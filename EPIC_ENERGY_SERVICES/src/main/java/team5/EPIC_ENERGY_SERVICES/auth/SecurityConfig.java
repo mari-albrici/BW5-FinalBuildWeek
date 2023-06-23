@@ -28,6 +28,7 @@ public class SecurityConfig {
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/users").authenticated());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/users/{id}").authenticated());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/customers").authenticated());
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/customers/findby/{value}").authenticated());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/customers/{id}").authenticated());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/address").authenticated());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/address/{addressId}").authenticated());
