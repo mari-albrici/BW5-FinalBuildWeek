@@ -38,9 +38,8 @@ public class AddressService {
 
 			return addressRepo.save(newAddress);
 		} else {
-			throw new IllegalArgumentException(
-					"Municipality not found for number: "
-							+ payload.getMunicipalityId());
+			throw new IllegalArgumentException("Municipality not found for id: "
+					+ payload.getMunicipalityId());
 		}
 
 	}
