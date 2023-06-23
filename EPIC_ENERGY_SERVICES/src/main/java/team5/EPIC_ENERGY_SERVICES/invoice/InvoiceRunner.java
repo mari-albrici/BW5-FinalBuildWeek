@@ -1,10 +1,14 @@
 package team5.EPIC_ENERGY_SERVICES.invoice;
 
 import java.time.LocalDate;
+import java.util.Locale;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import com.github.javafaker.Faker;
 
 import team5.EPIC_ENERGY_SERVICES.customers.CustomerService;
 import team5.EPIC_ENERGY_SERVICES.invoice.payload.InvoicePayload;
@@ -22,9 +26,33 @@ public class InvoiceRunner implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		InvoicePayload i1 = new InvoicePayload(1976, LocalDate.of(1976, 6, 19), 456.78, "9876543210", InvoiceType.PAID);
-		
-		InvoicePayload i2 = new InvoicePayload(2023, LocalDate.of(2023, 6, 19), 789.01, "2468135790", InvoiceType.ISSUED);
+		Faker faker = new Faker(new Locale("en"));
+		for (int i = 0; i < 5; i++) {
+			try {
+				int year = faker.number().numberBetween(1970, 2023);
+				LocalDate date = LocalDate.now();
+				double amount = Math
+						.round(faker.random().nextDouble() * 10000000) / 100.0;
+				String invoiceNumber = faker.code().isbn10();
+				InvoiceType type = faker.options().option(InvoiceType.class);
+				UUID customerId = UUID
+						.fromString("59fbcbe2-cc3f-4f7f-b2f2-e61436f7b9d6");
+
+				InvoicePayload invoice = new InvoicePayload(year, date, amount,
+						invoiceNumber, type, customerId);
+
+				// inService.create(invoice);
+
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}
+
+//		InvoicePayload i1 = new InvoicePayload(1976, LocalDate.of(1976, 6, 19), 456.78, "9876543210", InvoiceType.PAID,
+//				UUID.fromString("216c6570-474c-4d1b-ba01-938a207f8d2c"));
+//
+//		InvoicePayload i2 = new InvoicePayload(2023, LocalDate.of(2023, 6, 19), 789.01, "2468135790",
+//				InvoiceType.ISSUED, UUID.fromString("216c6570-474c-4d1b-ba01-938a207f8d2c"));
 //
 //		InvoicePayload i3 = new InvoicePayload(2022, LocalDate.of(2022, 6, 19), 234.56, "1357924680", InvoiceType.TO_PAY);
 //
@@ -82,8 +110,8 @@ public class InvoiceRunner implements CommandLineRunner {
 //		
 //		InvoicePayload i30 = new InvoicePayload(1970, LocalDate.of(1970, 6, 19), 456.78, "1357924680", InvoiceType.PAID);
 //		
-		inService.create(i1);
-		inService.create(i2);
+//		inService.create(i1);
+//		inService.create(i2);
 //		inService.create(i3);
 //		inService.create(i4);
 //		inService.create(i5);

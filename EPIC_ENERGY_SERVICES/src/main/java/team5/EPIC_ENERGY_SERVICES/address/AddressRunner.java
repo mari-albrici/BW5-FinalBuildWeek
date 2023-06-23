@@ -5,12 +5,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
+import java.util.UUID;
 
 import org.apache.commons.text.similarity.JaccardSimilarity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import com.github.javafaker.Faker;
 import com.opencsv.CSVParser;
 import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
@@ -28,6 +31,8 @@ public class AddressRunner implements CommandLineRunner {
 	MunicipalityRepository municipalityRepo;
 	@Autowired
 	ProvinceRepository provinceRepo;
+	@Autowired
+	AddressService addressService;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -138,6 +143,25 @@ public class AddressRunner implements CommandLineRunner {
 
 		} else {
 			System.out.println("Database già popolato!");
+		}
+
+		Faker faker = new Faker(new Locale("en"));
+		for (int i = 0; i < 5; i++) {
+			try {
+				String street = faker.address().streetName();
+				String buildingNumber = faker.address().buildingNumber();
+				String city = faker.address().city();
+				String zipCode = faker.address().zipCode();
+
+				UUID municipalityId = UUID
+						.fromString("aa550a42-dc1a-43c4-8ce3-e733f70be325");
+
+				CreateAddressPayload address = new CreateAddressPayload(street,
+						buildingNumber, city, zipCode, municipalityId);
+				// addressService.save(address);
+			} catch (Exception e) {
+				System.out.println(e);
+			}
 		}
 
 	}

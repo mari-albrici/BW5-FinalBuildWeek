@@ -12,7 +12,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import team5.EPIC_ENERGY_SERVICES.address.Address;
@@ -20,7 +19,7 @@ import team5.EPIC_ENERGY_SERVICES.address.Address;
 @Entity
 @Table(name = "customers")
 @Data
-@AllArgsConstructor
+
 @NoArgsConstructor
 public class Customer {
 
@@ -32,7 +31,7 @@ public class Customer {
 	private String contactName;
 	private String contactLastname;
 	private String contactEmail;
-	private String VATNumber;
+	private String vatnumber;
 	private LocalDate added;
 	private LocalDate lastContact;
 	private BigDecimal annualTurnover;
@@ -47,5 +46,29 @@ public class Customer {
 	@OneToOne
 	@JoinColumn(name = "operational_address_id")
 	private Address operationalAddress;
+
+	public Customer(String businessName, String email, String contactName,
+			String contactLastname, String contactEmail, String vatnumber,
+			LocalDate added, LocalDate lastContact, BigDecimal annualTurnover,
+			String pec, String phoneNo, String contactPhone,
+			BusinessType customerType, Address legalAddress,
+			Address operationalAddress) {
+		super();
+		this.businessName = businessName;
+		this.email = email;
+		this.contactName = contactName;
+		this.contactLastname = contactLastname;
+		this.contactEmail = contactEmail;
+		this.vatnumber = vatnumber;
+		this.added = added;
+		this.lastContact = lastContact;
+		this.annualTurnover = annualTurnover;
+		this.pec = pec;
+		this.phoneNo = phoneNo;
+		this.contactPhone = contactPhone;
+		this.customerType = customerType;
+		this.legalAddress = legalAddress;
+		this.operationalAddress = operationalAddress;
+	}
 
 }

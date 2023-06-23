@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import team5.EPIC_ENERGY_SERVICES.customers.CustomerRepository;
 import team5.EPIC_ENERGY_SERVICES.exceptions.BadRequestException;
 import team5.EPIC_ENERGY_SERVICES.exceptions.NotFoundException;
 import team5.EPIC_ENERGY_SERVICES.users.payload.UserRegistrationPayload;
@@ -18,11 +19,18 @@ public class UserService {
 	@Autowired
 	private UserRepository usersRepo;
 
+	@Autowired
+	private CustomerRepository customerRepo;
+
 	public User create(UserRegistrationPayload u) {
 		usersRepo.findByEmail(u.getEmail()).ifPresent(user -> {
-			throw new BadRequestException("Email " + user.getEmail() + " already in use!");
+			throw new BadRequestException(
+					"Email " + user.getEmail() + " already in use!");
 		});
-		User newUser = new User(u.getUsername(), u.getName(), u.getSurname(), u.getEmail(), u.getPassword());
+		User newUser = new User(u.getUsername(), u.getName(), u.getSurname(),
+				u.getEmail(), u.getPassword(),
+				customerRepo.findById(u.getCustomerId()).orElseThrow(
+						() -> new NotFoundException("Customer not found")));
 		return usersRepo.save(newUser);
 	}
 
@@ -37,14 +45,17 @@ public class UserService {
 	}
 
 	public User findById(UUID id) throws NotFoundException {
-		return usersRepo.findById(id).orElseThrow(() -> new NotFoundException("User not found"));
+		return usersRepo.findById(id)
+				.orElseThrow(() -> new NotFoundException("User not found"));
 	}
 
 	public User findByEmail(String email) throws NotFoundException {
-		return usersRepo.findByEmail(email).orElseThrow(() -> new NotFoundException("User not found"));
+		return usersRepo.findByEmail(email)
+				.orElseThrow(() -> new NotFoundException("User not found"));
 	}
 
-	public User findByIdAndUpdate(UUID id, UserRegistrationPayload u) throws NotFoundException {
+	public User findByIdAndUpdate(UUID id, UserRegistrationPayload u)
+			throws NotFoundException {
 		User found = this.findById(id);
 
 		found.setId(id);
@@ -59,6 +70,12 @@ public class UserService {
 	public void findByIdAndDelete(UUID id) throws NotFoundException {
 		User found = this.findById(id);
 		usersRepo.delete(found);
+	}
+
+	public void findByIdAndSetAdmin(UUID id) throws NotFoundException {
+		User found = this.findById(id);
+		found.setRole(Role.ADMIN);
+		usersRepo.save(found);
 	}
 
 }

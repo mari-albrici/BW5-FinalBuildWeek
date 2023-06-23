@@ -3,6 +3,7 @@ package team5.EPIC_ENERGY_SERVICES.customers;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Locale;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -34,13 +35,14 @@ public class CustomerRunner implements CommandLineRunner {
 
 		Faker faker = new Faker(new Locale("it"));
 
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < 1; i++)
 			try {
 				CustomerRegistrationPayload customer = new CustomerRegistrationPayload();
 				customer.setBusinessName(faker.funnyName().name());
 				customer.setAdded(LocalDate.of(2023, 1, 1));
 				customer.setLastContact(customer.getAdded().plusDays(42));
-				customer.setCustomerType(BusinessType.SAS);
+				customer.setCustomerType(
+						faker.options().option(BusinessType.class));
 				customer.setEmail(faker.internet().emailAddress());
 				customer.setAnnualTurnover(
 						BigDecimal.valueOf(faker.number().randomNumber()));
@@ -50,15 +52,11 @@ public class CustomerRunner implements CommandLineRunner {
 				customer.setContactPhone(faker.phoneNumber().phoneNumber());
 				customer.setPec(faker.internet().emailAddress());
 				customer.setPhoneNo(faker.phoneNumber().phoneNumber());
-//				customer.setLegalAddress(faker.address().fullAddress());
-//				customer.setLegalAddress(addressRepo
-//						.findById(UUID.fromString(
-//								"b3797739-2a43-454a-8495-9766c9b05bcf"))
-//						.orElseThrow(() -> new NotFoundException(
-//								"Address not found")));
-				customer.setVATNumber(String.valueOf(
+				customer.setLegalAddress(UUID
+						.fromString("06423e34-d97c-465d-ba92-c6475bd50cde"));
+				customer.setVatnumber(String.valueOf(
 						faker.number().numberBetween(111111111, 999999999)));
-			//	customerService.create(customer);
+//				customerService.create(customer);
 			} catch (Exception e) {
 				System.out.println(e);
 			}

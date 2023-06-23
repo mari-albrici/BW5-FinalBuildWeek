@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import team5.EPIC_ENERGY_SERVICES.address.AddressRepository;
 import team5.EPIC_ENERGY_SERVICES.exceptions.NotFoundException;
 
 @Service
@@ -20,6 +21,9 @@ public class CustomerService {
 	@Autowired
 	private CustomerRepository customerRepo;
 
+	@Autowired
+	private AddressRepository addressRepo;
+
 	public Customer create(CustomerRegistrationPayload body) {
 		Customer c = new Customer();
 		c.setBusinessName(body.getBusinessName());
@@ -27,7 +31,7 @@ public class CustomerService {
 		c.setContactName(body.getContactName());
 		c.setContactLastname(body.getContactLastname());
 		c.setContactEmail(body.getContactEmail());
-		c.setVATNumber(body.getVATNumber());
+		c.setVatnumber(body.getVatnumber());
 		c.setAdded(body.getAdded());
 		c.setLastContact(body.getLastContact());
 		c.setAnnualTurnover(body.getAnnualTurnover());
@@ -35,9 +39,16 @@ public class CustomerService {
 		c.setPhoneNo(body.getPhoneNo());
 		c.setContactPhone(body.getContactPhone());
 		c.setCustomerType(body.getCustomerType());
-//		c.setLegalAddress(body.getLegalAddress());
-//		c.setOperationalAddress(body.getOperationalAddress());
+		c.setLegalAddress(addressRepo.findById(body.getLegalAddress())
+				.orElseThrow(() -> new NotFoundException("Address not found")));
 
+		if (body.getOperationalAddress() != null) {
+			c.setOperationalAddress(addressRepo
+					.findById(body.getOperationalAddress()).orElseThrow(
+							() -> new NotFoundException("Address not found")));
+		} else {
+			c.setOperationalAddress(null);
+		}
 		return customerRepo.save(c);
 	}
 
@@ -52,10 +63,12 @@ public class CustomerService {
 	}
 
 	public Customer findById(UUID id) throws NotFoundException {
-		return customerRepo.findById(id).orElseThrow(() -> new NotFoundException("User not found"));
+		return customerRepo.findById(id)
+				.orElseThrow(() -> new NotFoundException("User not found"));
 	}
 
-	public Customer findByIdAndUpdate(UUID id, CustomerRegistrationPayload c) throws NotFoundException {
+	public Customer findByIdAndUpdate(UUID id, CustomerRegistrationPayload c)
+			throws NotFoundException {
 		Customer found = this.findById(id);
 
 		found.setBusinessName(c.getBusinessName());
@@ -63,56 +76,70 @@ public class CustomerService {
 		found.setContactName(c.getContactName());
 		found.setContactLastname(c.getContactLastname());
 		found.setContactEmail(c.getContactEmail());
-		// VATNumber
+		found.setVatnumber(c.getVatnumber());
 		found.setAdded(c.getAdded());
-		// lastContact
+		found.setLastContact(c.getLastContact());
 		found.setAnnualTurnover(c.getAnnualTurnover());
 		found.setPec(c.getPec());
 		found.setPhoneNo(c.getPhoneNo());
 		found.setContactPhone(c.getContactPhone());
 		found.setCustomerType(c.getCustomerType());
-		// UUID legalAddress
-		// UUID operationalAddress
+		found.setLegalAddress(addressRepo.findById(c.getLegalAddress())
+				.orElseThrow(() -> new NotFoundException("Address not found")));
+		if (c.getOperationalAddress() != null) {
+			found.setOperationalAddress(
+					addressRepo.findById(c.getOperationalAddress()).orElseThrow(
+							() -> new NotFoundException("Address not found")));
+		} else {
+			found.setOperationalAddress(null);
+		}
 
 		return customerRepo.save(found);
 	}
 
 // -------------- EXTRA FILTERS -----------------
-    public Page<Customer> findCustomerByAnnualTurnover(BigDecimal annualTurnover, int page, int size, String sortBy) {
-        if (!Objects.equals(annualTurnover, BigDecimal.ZERO)) {
-            Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
-            return customerRepo.findCustomerByAnnualTurnover(annualTurnover, pageable);
-        } else {
-            return Page.empty();
-        }
-    }
+	public Page<Customer> findCustomerByAnnualTurnover(
+			BigDecimal annualTurnover, int page, int size, String sortBy) {
+		if (!Objects.equals(annualTurnover, BigDecimal.ZERO)) {
+			Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+			return customerRepo.findCustomerByAnnualTurnover(annualTurnover,
+					pageable);
+		} else {
+			return Page.empty();
+		}
+	}
 
-    public Page<Customer> findCustomerByAdded(LocalDate added, int page, int size, String sortBy) {
-        if (added != null) {
-            Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
-            return customerRepo.findCustomerByAdded(added, pageable);
-        } else {
-            return Page.empty();
-        }
-    }
+	public Page<Customer> findCustomerByAdded(LocalDate added, int page,
+			int size, String sortBy) {
+		if (added != null) {
+			Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+			return customerRepo.findCustomerByAdded(added, pageable);
+		} else {
+			return Page.empty();
+		}
+	}
 
-    public Page<Customer> findCustomerByLastContact(LocalDate lastContact, int page, int size, String sortBy) {
-        if (lastContact != null) {
-            Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
-            return customerRepo.findCustomerByLastContact(lastContact, pageable);
-        } else {
-            return Page.empty();
-        }
-    }
+	public Page<Customer> findCustomerByLastContact(LocalDate lastContact,
+			int page, int size, String sortBy) {
+		if (lastContact != null) {
+			Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+			return customerRepo.findCustomerByLastContact(lastContact,
+					pageable);
+		} else {
+			return Page.empty();
+		}
+	}
 
-    public Page<Customer> findCustomerByBusinessName(String businessName, int page, int size, String sortBy) {
-        if (businessName != null) {
-            Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
-            return customerRepo.findCustomerByBusinessName(businessName, pageable);
-        } else {
-            return Page.empty();
-        }
-    }
+	public Page<Customer> findCustomerByBusinessName(String businessName,
+			int page, int size, String sortBy) {
+		if (businessName != null) {
+			Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+			return customerRepo.findCustomerByBusinessName(businessName,
+					pageable);
+		} else {
+			return Page.empty();
+		}
+	}
 
 	public void findByIdAndDelete(UUID id) throws NotFoundException {
 		Customer found = this.findById(id);

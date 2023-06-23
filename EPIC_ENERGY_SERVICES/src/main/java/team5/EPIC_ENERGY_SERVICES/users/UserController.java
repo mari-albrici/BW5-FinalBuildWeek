@@ -9,6 +9,7 @@ import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,7 +29,8 @@ public class UserController {
 	private UserService usersService;
 
 	@GetMapping("")
-	public Page<User> getUsers(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,
+	public Page<User> getUsers(@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size,
 			@RequestParam(defaultValue = "id") String sortBy) {
 		return usersService.find(page, size, sortBy);
 	}
@@ -41,7 +43,8 @@ public class UserController {
 
 	@PutMapping("/{userId}")
 	@PostAuthorize("hasAuthority('ADMIN')")
-	public User updateUser(@PathVariable UUID userId, @RequestBody UserRegistrationPayload body) throws Exception {
+	public User updateUser(@PathVariable UUID userId,
+			@RequestBody UserRegistrationPayload body) throws Exception {
 		return usersService.findByIdAndUpdate(userId, body);
 	}
 
@@ -50,6 +53,12 @@ public class UserController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteUser(@PathVariable UUID userId) throws NotFoundException {
 		usersService.findByIdAndDelete(userId);
+	}
+
+	@PatchMapping("/{userId}")
+	@PostAuthorize("hasAuthority('ADMIN')")
+	public void setAdmin(@PathVariable UUID userId) throws NotFoundException {
+		usersService.findByIdAndSetAdmin(userId);
 	}
 
 }
