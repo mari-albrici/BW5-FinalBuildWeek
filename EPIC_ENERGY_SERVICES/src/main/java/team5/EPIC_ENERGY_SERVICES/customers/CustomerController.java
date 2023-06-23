@@ -63,13 +63,13 @@ public class CustomerController {
 
     //********** EXTRA FILTER ENDPOINTS **********
 
-    @GetMapping("/{annualTurnover}")
+    @GetMapping("/findby/{annualTurnover}")
     public ResponseEntity<Page<Customer>> getCustomerByTurnover(@PathVariable BigDecimal annualTurnover) {
         Page<Customer> customers = customerService.findCustomerByAnnualTurnover(annualTurnover, 0, 20, "customerId");
         return ResponseEntity.ok(customers);
     }
 
-    @GetMapping("/{added}")
+    @GetMapping("/findby/{added}")
     public ResponseEntity<Page<Customer>> getCustomersByAdded(@PathVariable String added)  {
 
         LocalDate dateAdded = LocalDate.parse(added);
@@ -78,7 +78,7 @@ public class CustomerController {
         return ResponseEntity.ok(customers);
     }
 
-    @GetMapping("/{lastContact}")
+    @GetMapping("/findby/{lastContact}")
     public ResponseEntity<Page<Customer>> getCustomersByLastContact(@PathVariable String lastContact) {
 
         LocalDate lastContacted = LocalDate.parse(lastContact);
@@ -87,7 +87,7 @@ public class CustomerController {
         return ResponseEntity.ok(customers);
     }
 
-    @GetMapping("/{businessName}")
+    @GetMapping("/findby/{businessName}")
     public ResponseEntity<Page<Customer>> findCustomersByBusinessName(@PathVariable String businessName) {
         Page<Customer> customers = customerService.findCustomerByBusinessName(businessName, 0, 20, "customerId");
         return ResponseEntity.ok(customers);
