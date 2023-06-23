@@ -15,6 +15,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import team5.EPIC_ENERGY_SERVICES.address.Address;
 
 @Entity
 @Table(name = "customers")
@@ -42,9 +43,9 @@ public class Customer {
 	private BusinessType customerType;
 	@OneToOne
 	@JoinColumn(name = "legal_address_id")
-	private UUID legalAddress;
+	private Address legalAddress;
 	@OneToOne
 	@JoinColumn(name = "operational_address_id")
-	private UUID operationalAddress;
+	private Address operationalAddress;
 
 }
