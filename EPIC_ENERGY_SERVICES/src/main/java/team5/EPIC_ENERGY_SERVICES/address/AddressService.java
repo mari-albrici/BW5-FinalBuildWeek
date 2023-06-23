@@ -26,21 +26,17 @@ public class AddressService {
 
 	public Address save(CreateAddressPayload payload) {
 
-		Optional<Municipality> municipalityFound = municipalityRepo
-				.findById(UUID.fromString(payload.getMunicipalityId()));
+		Optional<Municipality> municipalityFound = municipalityRepo.findById(payload.getMunicipalityId());
 
 		if (municipalityFound.isPresent()) {
 			Municipality municipality = municipalityFound.get();
 
-			Address newAddress = new Address(payload.getStreet(),
-					payload.getBuildingNumber(), payload.getCity(),
+			Address newAddress = new Address(payload.getStreet(), payload.getBuildingNumber(), payload.getCity(),
 					payload.getZipCode(), municipality);
 
 			return addressRepo.save(newAddress);
 		} else {
-			throw new IllegalArgumentException(
-					"Municipality not found for number: "
-							+ payload.getMunicipalityId());
+			throw new IllegalArgumentException("Municipality not found for number: " + payload.getMunicipalityId());
 		}
 
 	}
@@ -51,16 +47,13 @@ public class AddressService {
 
 	public Address getAddressById(UUID id) {
 
-		return addressRepo.findById(id).orElseThrow(
-				() -> new NotFoundException("Address not found for id: " + id));
+		return addressRepo.findById(id).orElseThrow(() -> new NotFoundException("Address not found for id: " + id));
 
 	}
 
-	public Address findByIdAndUpdate(UUID userId, CreateAddressPayload address)
-			throws NotFoundException {
+	public Address findByIdAndUpdate(UUID userId, CreateAddressPayload address) throws NotFoundException {
 		Address found = this.getAddressById(userId);
-		Optional<Municipality> municipalityFound = municipalityRepo
-				.findById(UUID.fromString(address.getMunicipalityId()));
+		Optional<Municipality> municipalityFound = municipalityRepo.findById(address.getMunicipalityId());
 
 		found.setId(userId);
 		found.setBuildingNumber(address.getBuildingNumber());

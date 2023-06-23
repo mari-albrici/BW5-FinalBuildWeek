@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -28,10 +29,10 @@ public class CustomerRegistrationPayload {
 
 	String VATNumber;
 
-	@JsonFormat(shape= JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	LocalDate added;
 
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	LocalDate lastContact;
 
 	BigDecimal annualTurnover;
@@ -43,7 +44,7 @@ public class CustomerRegistrationPayload {
 	String contactPhone;
 
 	BusinessType customerType;
-
+	@NotNull
 	UUID legalAddress;
 
 	UUID operationalAddress;

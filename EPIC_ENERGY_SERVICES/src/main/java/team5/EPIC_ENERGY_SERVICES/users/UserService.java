@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import team5.EPIC_ENERGY_SERVICES.customers.CustomerRepository;
 import team5.EPIC_ENERGY_SERVICES.exceptions.BadRequestException;
 import team5.EPIC_ENERGY_SERVICES.exceptions.NotFoundException;
 import team5.EPIC_ENERGY_SERVICES.users.payload.UserRegistrationPayload;
@@ -18,11 +19,16 @@ public class UserService {
 	@Autowired
 	private UserRepository usersRepo;
 
+	@Autowired
+	private CustomerRepository customerRepo;
+
 	public User create(UserRegistrationPayload u) {
 		usersRepo.findByEmail(u.getEmail()).ifPresent(user -> {
 			throw new BadRequestException("Email " + user.getEmail() + " already in use!");
 		});
-		User newUser = new User(u.getUsername(), u.getName(), u.getSurname(), u.getEmail(), u.getPassword());
+		User newUser = new User(u.getUsername(), u.getName(), u.getSurname(), u.getEmail(), u.getPassword(),
+				customerRepo.findById(u.getCustomerId())
+						.orElseThrow(() -> new NotFoundException("Customer not found")));
 		return usersRepo.save(newUser);
 	}
 

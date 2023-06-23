@@ -12,7 +12,6 @@ import team5.EPIC_ENERGY_SERVICES.invoice.InvoiceType;
 @Setter
 public class InvoicePayload {
 
-
 	@NotNull(message = "enter a valid year")
 //	@Size(min = 0, max = 3000)
 	int year;
@@ -36,18 +35,21 @@ public class InvoicePayload {
 	InvoiceType type;
 
 // ----------------------------------------
+	@NotNull
 	UUID customerId;
 
 	public InvoicePayload(@NotNull(message = "enter a valid year") int year,
 			@NotNull(message = "enter a valid date") LocalDate date,
 			@NotNull(message = "enter a valid amount") double amount,
 			@NotNull(message = "enter a valid invoice Number") String invoiceNumber,
-			@NotNull(message = "enter a valid invoice type") InvoiceType type) {
+			@NotNull(message = "enter a valid invoice type") InvoiceType type,
+			@NotNull(message = "enter a valid customerId") UUID customerId) {
 		super();
 		this.year = year;
 		this.date = date;
 		this.amount = amount;
 		this.invoiceNumber = invoiceNumber;
 		this.type = type;
+		this.customerId = customerId;
 	}
 }
