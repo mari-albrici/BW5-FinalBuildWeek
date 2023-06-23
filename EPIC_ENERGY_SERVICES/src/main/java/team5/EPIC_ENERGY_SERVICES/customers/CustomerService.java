@@ -19,19 +19,19 @@ public class CustomerService {
 
 	public Customer create(CustomerRegistrationPayload body) {
 		Customer c = new Customer();
-		c.setBusinessName(c.getBusinessName());
-		c.setEmail(c.getEmail());
-		c.setContactName(c.getContactName());
-		c.setContactLastname(c.getContactLastname());
-		c.setContactEmail(c.getContactEmail());
+		c.setBusinessName(body.getBusinessName());
+		c.setEmail(body.getEmail());
+		c.setContactName(body.getContactName());
+		c.setContactLastname(body.getContactLastname());
+		c.setContactEmail(body.getContactEmail());
 		// VATNumber
-		c.setAdded(c.getAdded());
+		c.setAdded(body.getAdded());
 		// lastContact
-		c.setAnnualTurnover(c.getAnnualTurnover());
-		c.setPec(c.getPec());
-		c.setPhoneNo(c.getPhoneNo());
-		c.setContactPhone(c.getContactPhone());
-		c.setCustomerType(c.getCustomerType());
+		c.setAnnualTurnover(body.getAnnualTurnover());
+		c.setPec(body.getPec());
+		c.setPhoneNo(body.getPhoneNo());
+		c.setContactPhone(body.getContactPhone());
+		c.setCustomerType(body.getCustomerType());
 		// UUID legalAddress
 		// UUID operationalAddress
 		return customerRepo.save(c);

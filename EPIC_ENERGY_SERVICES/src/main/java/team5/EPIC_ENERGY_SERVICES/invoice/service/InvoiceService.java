@@ -58,7 +58,7 @@ public class InvoiceService {
 	};
 
 // ---------------------------------------------------------------------------
-	public Invoice findByIdAndUpdate(UUID id, Invoice invoice) throws NotFoundException {
+	public Invoice findByIdAndUpdate(UUID id, InvoicePayload invoice) throws NotFoundException {
 		Invoice i = this.findById(id);
 
 		i.setYear(invoice.getYear());
