@@ -36,21 +36,9 @@ public class CustomerController {
 	public Page<Customer> getCustomers(
 			@RequestParam(name = "page", defaultValue = "0") int page,
 			@RequestParam(name = "size", defaultValue = "10") int size,
-			@RequestParam(defaultValue = "id") String sortBy,
-			@RequestBody(required = false) SortRequest sortRequest) {
-
-		Sort sort = null;
-
-		if(sortRequest != null){
-			sort = Sort.by(sortRequest.getSortBy());
-			if (sortRequest.isDescending()) {
-				sort = sort.descending();
-			}
-		} else {
-			sort = Sort.by(sortBy);
-		}
-
-		return customerService.find(page, size, String.valueOf(sort));
+			@RequestParam(defaultValue = "id") String sortBy) {
+		
+		return customerService.find(page, size, String.valueOf(sortBy));
 	}
 
 	// ********** POST NEW CUSTOMER **********
