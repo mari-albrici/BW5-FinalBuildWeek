@@ -1,5 +1,6 @@
 package team5.EPIC_ENERGY_SERVICES.invoice.service;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import lombok.extern.java.Log;
 import team5.EPIC_ENERGY_SERVICES.customers.CustomerRepository;
 import team5.EPIC_ENERGY_SERVICES.exceptions.NotFoundException;
 import team5.EPIC_ENERGY_SERVICES.invoice.Invoice;
+import team5.EPIC_ENERGY_SERVICES.invoice.InvoiceType;
 import team5.EPIC_ENERGY_SERVICES.invoice.payload.InvoicePayload;
 import team5.EPIC_ENERGY_SERVICES.invoice.repositories.InvoiceRepository;
 
