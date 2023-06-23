@@ -15,14 +15,17 @@ import org.springframework.stereotype.Repository;
 public interface CustomerRepository extends JpaRepository<Customer, UUID> {
 
 	@Query(value = "SELECT * FROM customers WHERE annual_turnover >= :annualTurnover", nativeQuery = true)
-	Page<Customer> findCustomerByAnnualTurnover(BigDecimal annualTurnover, Pageable pageable);
+	Page<Customer> findCustomerByAnnualTurnover(BigDecimal annualTurnover,
+			Pageable pageable);
 
-	@Query(value = "SELECT * FROM customers WHERE added_name ILIKE %:added%", nativeQuery = true)
+	@Query(value = "SELECT * FROM customers WHERE added = :added", nativeQuery = true)
 	Page<Customer> findCustomerByAdded(LocalDate added, Pageable pageable);
 
-	@Query(value = "SELECT * FROM customers WHERE last_contact ILIKE %:lastContact%", nativeQuery = true)
-	Page<Customer> findCustomerByLastContact(LocalDate lastContact, Pageable pageable);
+	@Query(value = "SELECT * FROM customers WHERE last_contact = :lastContact", nativeQuery = true)
+	Page<Customer> findCustomerByLastContact(LocalDate lastContact,
+			Pageable pageable);
 
 	@Query(value = "SELECT * FROM customers WHERE business_name ILIKE %:businessName%", nativeQuery = true)
-	Page<Customer> findCustomerByBusinessName(@Param("businessName") String businessName, Pageable pageable);
+	Page<Customer> findCustomerByBusinessName(
+			@Param("businessName") String businessName, Pageable pageable);
 }

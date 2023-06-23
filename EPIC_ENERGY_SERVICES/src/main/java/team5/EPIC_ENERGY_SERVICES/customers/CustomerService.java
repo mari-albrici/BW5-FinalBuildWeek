@@ -41,6 +41,7 @@ public class CustomerService {
 		c.setCustomerType(body.getCustomerType());
 		c.setLegalAddress(addressRepo.findById(body.getLegalAddress())
 				.orElseThrow(() -> new NotFoundException("Address not found")));
+
 		if (body.getOperationalAddress() != null) {
 			c.setOperationalAddress(addressRepo
 					.findById(body.getOperationalAddress()).orElseThrow(
