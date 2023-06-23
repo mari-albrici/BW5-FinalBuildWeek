@@ -18,21 +18,21 @@ public interface InvoiceRepository extends JpaRepository<Invoice, UUID>{
 
 	Optional<Invoice> findByInvoiceNumber(String invoiceNumber);
 	
-//// -------------------------------------------------------------------
-//	@Query(value = "SELECT * FROM invoice WHERE type ILIKE %:invoiceType% ")
-//	Page<Invoice> findByType(InvoiceType invoiceType, Pageable pageable);
+// -------------------------------------------------------------------
+	@Query(value = "SELECT * FROM invoice WHERE type = :invoiceType", nativeQuery = true)
+	Page<Invoice> findByType(InvoiceType invoiceType, Pageable pageable);
+	
+	
+/// --------------------------------------------------------------------
+	@Query(value = "SELECT * FROM invoice WHERE date = :date", nativeQuery = true)
+	Page<Invoice> findByDate(LocalDate date, Pageable pageable);
 //	
-//	
-//// --------------------------------------------------------------------
-//	@Query(value = "SELECT * FROM invoice WHERE date ILIKE %:date% ")
-//	Page<Invoice> findByDate(LocalDate date, Pageable pageable);
-//	
-//// -------------------------------------------------------------------
-//	@Query(value = "SELECT * FROM invoice WHERE year ILIKE %:year% ")
-//	Page<Invoice> findByYear(int year, Pageable pageable);
-//	
-//// -------------------------------------------------------------------
-//	@Query(value = "SELECT * FROM invoice WHERE amount BETWEEN %:initalRange% AND %:finalRange% ")
+/// -------------------------------------------------------------------
+	@Query(value = "SELECT * FROM invoice WHERE year = :year", nativeQuery = true)
+	Page<Invoice> findByYear(int year, Pageable pageable);
+	
+// -------------------------------------------------------------------
+//	@Query(value = "SELECT * FROM invoice WHERE amount BETWEEN = %:initalRange% AND %:finalRange%", nativeQuery = true)
 //	Page<Invoice> findByImportRange(double initialRange, double finalRange, Pageable pageable);
 
 }

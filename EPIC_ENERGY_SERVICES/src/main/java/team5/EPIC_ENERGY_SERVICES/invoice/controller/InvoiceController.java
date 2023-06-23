@@ -59,47 +59,47 @@ public class InvoiceController {
 	};
 
 // ------------------------------------------------------------------------------------------------------------------------------------------------
-//	
-//	@GetMapping("/{:invoiceNumber}")
-//	@ResponseStatus(HttpStatus.OK)
-//	public Invoice findInvoiceId(@PathVariable String invoiceNumber) throws Exception{
-//		return invoiceService.findByInvoiceNumber(invoiceNumber);
-//	};
-//	
-//	
-//// ------------------------------------------------------------------------------------------------------------------------------------------------
-//	
-//	@GetMapping("find/status-{:idStatus}")
-//	@ResponseStatus(HttpStatus.OK)
-//	public ResponseEntity<Page<Invoice>> findByType(@PathVariable InvoiceType invoiceType, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String sorted) {
-//		Page<Invoice> invoices = invoiceService.findByType(invoiceType, page, size, sorted);
-//		return ResponseEntity.ok(invoices);
-//	}
-//	
-//// -----------------------------------------------------------------------------------------------------------------------------------------------
-//	
-//	@GetMapping("find/year-{:idYear}")
-//	@ResponseStatus(HttpStatus.OK)
-//	public ResponseEntity<Page<Invoice>> findByYear(@PathVariable int year, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String sorted) {
-//		Page<Invoice> invoices = invoiceService.findByYear(year, page, size, sorted);
-//		return ResponseEntity.ok(invoices);
-//	}
-//// ------------------------------------------------------------------------------------------------------------------------------------------------
-//	
-//	@GetMapping("find/date-{:idDate}")
-//	@ResponseStatus(HttpStatus.OK)
-//	public ResponseEntity<Page<Invoice>> findByDate(@PathVariable LocalDate date, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String sorted) {
-//		Page<Invoice> invoices = invoiceService.findByDate(date, page, size, sorted);
-//		return ResponseEntity.ok(invoices);
-//	}
-//// ------------------------------------------------------------------------------------------------------------------------------------------------
-//	
+	
+	@GetMapping("/{:invoiceNumber}")
+	@ResponseStatus(HttpStatus.OK)
+	public Invoice findInvoiceId(@PathVariable String invoiceNumber) throws Exception{
+		return invoiceService.findByInvoiceNumber(invoiceNumber);
+	};
+	
+	
+// ------------------------------------------------------------------------------------------------------------------------------------------------
+	
+	@GetMapping("find/status-{:idStatus}")
+	@ResponseStatus(HttpStatus.OK)
+	public ResponseEntity<Page<Invoice>> findByType(@PathVariable InvoiceType invoiceType, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String sorted) {
+		Page<Invoice> invoices = invoiceService.findByType(invoiceType, page, size, sorted);
+		return ResponseEntity.ok(invoices);
+	}
+	
+// -----------------------------------------------------------------------------------------------------------------------------------------------
+	
+	@GetMapping("find/year-{:idYear}")
+	@ResponseStatus(HttpStatus.OK)
+	public ResponseEntity<Page<Invoice>> findByYear(@PathVariable int year, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String sorted) {
+		Page<Invoice> invoices = invoiceService.findByYear(year, page, size, sorted);
+		return ResponseEntity.ok(invoices);
+	}
+// ------------------------------------------------------------------------------------------------------------------------------------------------
+	
+	@GetMapping("find/date-{:idDate}")
+	@ResponseStatus(HttpStatus.OK)
+	public ResponseEntity<Page<Invoice>> findByDate(@PathVariable LocalDate date, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String sorted) {
+		Page<Invoice> invoices = invoiceService.findByDate(date, page, size, sorted);
+		return ResponseEntity.ok(invoices);
+	}
+// ------------------------------------------------------------------------------------------------------------------------------------------------
+	
 //	@GetMapping("find/import-range-{:idInitialRange}-{:idFinalRange}")
 //	@ResponseStatus(HttpStatus.OK)
 //	public ResponseEntity<Page<Invoice>> findByImportRange(@PathVariable int initialRange, @PathVariable int finalRange, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String sorted) {
 //		Page<Invoice> invoices = invoiceService.findByImportRange(initialRange, finalRange, page, size, sorted);
 //		return ResponseEntity.ok(invoices);
-//	}
+//	};
 // ------------------------------------------------------------------------------------------------------------------------------------------------
 
 	@PutMapping("/{id}")
